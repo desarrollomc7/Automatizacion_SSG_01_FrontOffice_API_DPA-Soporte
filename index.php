@@ -205,10 +205,10 @@
             
             <br>
             <button id="btnBuscar" class="otroBoton" onclick="buscar()">Buscar</button>
-            <!-- <button id="btnBuscar" class="otroBoton" onclick="rebuscar()">Buscar</button> -->
             <button id="btnExport" class="otroBoton">Exportar a Excel</button>
             <button class="otroBoton" onclick="recargar()">Nueva búsqueda</button>
-            <!-- <button class="otroBoton" onclick="test()">test</button> -->
+            <button class="otroBoton" onclick="window.location.href='php/subir.php'">Subir archivo</button>
+
             <button class="otroBoton" id="cerrar" onclick="location.href='cerrarSesion.php'">Cerrar sesión</button>
         </div>
         
