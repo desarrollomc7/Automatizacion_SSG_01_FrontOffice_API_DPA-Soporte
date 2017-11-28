@@ -1,0 +1,111 @@
+*{
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    height: 100%;
+    background-repeat: no-repeat;
+    margin: 0;
+    background-attachment: fixed;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#EEE), to(#CCC));
+    background-image: -webkit-linear-gradient(top, #EEE, #CCC);
+    background-image: -moz-linear-gradient(top, #EEE, #CCC);
+    background-image: linear-gradient(to bottom, #EEE, #CCC);
+}
+
+#cuadro{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 600px;
+    margin-left: -300px;
+    height: 440px;
+    margin-top: -220px;
+
+    background-color: #FFF;
+}
+
+h2{
+    background-color: #0283e1;
+    font-weight: bold;
+    color: white;
+    font-size: 19px;
+    line-height: 21px;
+    margin: 0;
+    padding: 28px 50px 15px 50px;
+    width: auto;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+a, p{
+    /* background-color: #0283e1; */
+    /* font-weight: bold; */
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    color: blue;
+    font-size: 15px;
+    line-height: 21px;
+    margin: 0 20px;
+    /* padding: 28px 50px 15px 50px; */
+    padding: 0px 10px 0px 10px;
+    /* width: auto; */
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+a:hover{
+    text-decoration: underline;
+}
+
+.error{
+    text-align: center;
+    color: white;
+    background-color: red;
+    width: 100%;
+    font-size: 18px;
+    line-height: 21px;
+    margin: 10px 0px;
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;s
+}
+
+input, button{
+    /* display: block; */
+    height: 40px;
+    border: 2px solid #CCC;
+    font-size: 16px;
+    padding: 7px 10px 7px 10px;
+    width: 250px;
+    margin: 20px 23px 0px;
+}
+
+button{
+    background-color: #0283e1;
+    font-weight: bold;
+    color: white;
+    font-size: 19px;
+    line-height: 21px;
+    border: 0;
+    /* margin: 40px auto 30px; */
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: #0071C3;
+}
+
+textarea{
+    display:block;
+        /* display: block; */
+        height: 100px;
+        max-height: 100px;
+        width: 550px;
+        max-width: 550px;
+        border: 2px solid #CCC;
+        font-size: 16px;
+        /* padding: 7px 10px 7px 10px; */
+        /* padding: 0px 20px; */
+        margin: 20px 23px 0px;
+}
