@@ -18,8 +18,6 @@
         <link rel="stylesheet" type="text/css" href="css/style.css"> 
         <link href="https://fonts.googleapis.com/css?family=Encode+Sans" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <!-- <script src="js/jquery-3.2.1.min.js"></script> -->
-        <!-- <script src="js/jquery.doubleScroll.js"></script> -->
     </head>
     <body>
         <header>
@@ -30,14 +28,6 @@
             include("php/Lista.php");
             include("php/conexion.php");
             header('Content-Type: text/html; charset=UTF-8'); 
-            // $server = "10.164.62.124";
-            // $user = "root";
-            // $pass = "qwerty";
-            // $db = "samsung";
-            // // $server = "localhost";
-            // // $user = "root";
-            // // $pass = "";
-            // // $db = "samsung";
             
             if (!($link=mysqli_connect($server,$user,$pass,$db)))  
             {  
