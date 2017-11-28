@@ -59,8 +59,9 @@
                 } else {
                     echo "<p>Fichero no valido</p>";
                 }
-
                 print "</div>";
+                exec('..\Conversor.exe ..\TIPIFICACION.csv');
+                
             }
         ?>
     </body>
