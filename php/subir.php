@@ -35,58 +35,66 @@
             }  
             mysqli_set_charset($link, "utf8");
             ?>
-        <!-- Learn about this code on MDN: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file -->
 
-        <form method="post" enctype="multipart/form-data">
-        <div>
-            <!-- <label class="otroBoton" for="data">Subir archivo (CSV)</label> -->
-            <input type="file" id="data" name="data" accept=".csv">
-        </div>
-        <div class="preview">
-            <p>No ha seleccionado ningún archivo</p>
-        </div>
-        <div>
-            <button class="otroBoton">Subir</button>
-        </div>
+        <form enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+            <div>
+                <input type="file" id="data" name="data" accept=".csv">
+            </div>
+            <div class="preview">
+                <p>No ha seleccionado ningún archivo</p>
+            </div>
+            <div>
+                <button class="otroBoton">Subir</button>
+            </div>
         </form>
+        <?php
+            if( isset($_FILES['data']['name']) ) {
+                $dir_subida = 'C:/wamp64/www/samsung/';
+                // $dir_subida = 'C:/inetpub/wwwroot/samsung/';
+                $fichero_subido = $dir_subida.basename("TIPIFICACION.csv");
+
+                echo '<div class="respuesta">';
+                if (move_uploaded_file($_FILES['data']['tmp_name'], $fichero_subido)) {
+                    echo "<p>El fichero es válido y se subió con éxito.</p>";
+                } else {
+                    echo "<p>Fichero no valido</p>";
+                }
+
+                print "</div>";
+            }
+        ?>
     </body>
+
     <style>
-       html {
-        font-family: sans-serif;
-      }
-      
-      form {
-        width: 600px;
-        background: #aaa;
-        margin: 20px auto;
-        padding: 20px;
-        border: 1px solid black;
-      }
-      
-      form li, div > p {
-        background: #eee;
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 10px;
-        list-style-type: none;
-        border: 1px solid black;
-      }
-      
-      /* form img {
-        height: 64px;
-        order: 1;
-      }
-       */
-      form p {
-        line-height: 32px;
-        padding-left: 10px;
-      }
+        input {
+            margin: 0px;
+        }
+        form {
+            width: 600px;
+            background: #aaa;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid black;
+        }
+        
+        div > p {
+            background: #eee;
+            border: 1px solid black;
+        }
+
+        form p, .respuesta > p {
+            line-height: 32px;
+            padding-left: 10px;
+        }
+        .respuesta {
+            margin: 20px auto;
+            width: 500px;
+        }
     </style>
     <script>
         var input = document.querySelector('input');
         var preview = document.querySelector('.preview');
 
-        // input.style.opacity = 0;
         input.addEventListener('change', updateImageDisplay);
         
         function updateImageDisplay() {
@@ -95,6 +103,7 @@
                 preview.children[0].textContent = curFiles[0].name + ', Tamaño ' + returnFileSize(curFiles[0].size) + '.';                
             }
         }
+
         function returnFileSize(number) {
             if(number < 1024) {
                 return number + ' bytes';
@@ -106,6 +115,3 @@
         }
     </script>
 </html>
-<?php
-
-?>
