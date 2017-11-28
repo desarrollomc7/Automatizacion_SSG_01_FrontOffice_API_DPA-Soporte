@@ -239,50 +239,7 @@
                     </tr>  
                 </thead>
                 <tbody id="Tabla">
-                    <?php
-                    // if(isset($_POST['submit'])) {
-                        //     $name = $_POST['nombre'];
-                        //     echo " <b> $name </b>";
-                        // }
-                        
-                        // $result = mysqli_query($link, "SELECT numeroidentificacion, id, nombre, apellido, telefonocelular,estado, distrito2 FROM cliente");
-                        // $result = mysqli_query($link, "SELECT s.solicitud_fecha, s.solicitud_tiempo, estado, distrito2, CONCAT(apellido, ' ', nombre) AS usuario, c.telefonocelular FROM cliente c LEFT JOIN servicerequest s ON c.numeroidentificacion = s.numeroidentificacion_cliente;"); 
-                        // $result = mysqli_query($link, "SELECT o.solicitud_fecha, o.solicitud_tiempo, o.estado, o.distrito2, t.modelo, t.sintoma_cat1, t.sintoma_cat2, t.sintoma_cat3, t.resolucion, t.estado, t.estado_razon, t.almacen, o.usuario, t.usuariowindows, o.telefonocelular FROM (SELECT s.solicitud_fecha, s.solicitud_tiempo, c.estado, c.distrito2,CONCAT(nombre, ' ', apellido) AS usuario, c.telefonocelular, c.numeroidentificacion FROM cliente c LEFT JOIN servicerequest s ON c.numeroidentificacion = s.numeroidentificacion_cliente) AS o , transaccion t where o.numeroidentificacion = t.numeroidentificacion_cliente ORDER BY o.estado, o.distrito2, o.usuario;");
-                        $result = mysqli_query($link, "SELECT t.fechatransaccion, o.estado, o.distrito2, t.modelo, t.sintoma_cat1, t.sintoma_cat2, t.sintoma_cat3, t.resolucion, t.estado, t.estado_razon, t.almacen, o.usuario, t.usuariowindows, o.telefonocelular, t.numeroidentificacion_cliente, o.idpedido, t.prototipo, o.serviciotecnicoautorizado_id FROM (SELECT s.serviciotecnicoautorizado_id ,s.idpedido, s.solicitud_fecha, s.solicitud_tiempo, c.estado, c.distrito2,CONCAT(nombre, ' ', apellido) AS usuario, c.telefonocelular, c.numeroidentificacion FROM cliente c LEFT JOIN servicerequest s ON c.numeroidentificacion = s.numeroidentificacion_cliente) AS o , transaccion t where o.numeroidentificacion = t.numeroidentificacion_cliente ORDER BY t.fechatransaccion desc;");
-
-
-                        // SELECT t.fechatransaccion, o.estado, o.distrito2, t.modelo, t.sintoma_cat1, t.sintoma_cat2, t.sintoma_cat3, t.resolucion, t.estado, t.estado_razon, t.almacen, o.usuario, t.usuariowindows, o.telefonocelular, t.numeroidentificacion_cliente, o.idpedido, t.prototipo, o.serviciotecnicoautorizado_id FROM (SELECT s.serviciotecnicoautorizado_id ,s.idpedido, s.solicitud_fecha, s.solicitud_tiempo, c.estado, c.distrito2,CONCAT(nombre, ' ', apellido) AS usuario, c.telefonocelular, c.numeroidentificacion FROM cliente c, servicerequest s where c.numeroidentificacion = s.numeroidentificacion_cliente) AS o , transaccion t where o.numeroidentificacion = t.numeroidentificacion_cliente ORDER BY t.fechatransaccion desc;
-                        
-
-                        // SELECT * FROM transaccion t LEFT JOIN servicerequest s ON t.idtransaccion = s.numerotransaccion_transaccion limit 10000
-                        
-                        
-                        while ($row = mysqli_fetch_row($result)){   
-                            echo "<tr>";  
-                            vacio( substr($row[0], 0, 10) );  
-                            vacio( substr($row[0], -8) );  
-                            vacio( $row[17] );  
-                            vacio( $row[16] );  
-                            vacio( $row[15] );  
-                            vacio( $row[3] );  
-                            lista( $row[3] );
-                            vacio( $row[4] );  
-                            vacio( $row[5] );  
-                            vacio( $row[6] );  
-                            vacio( $row[7] );  
-                            vacio( $row[8] );  
-                            vacio( $row[9] );  
-                            vacio( $row[10] );  
-                            vacio( $row[12] );  
-                            vacio( $row[11] );  
-                            vacio( $row[14] );  
-                            vacio( $row[13] );  
-                            vacio( $row[2] );
-                            vacio( $row[1] );  
-                            echo "</tr>";  
-                            // vacios: sin datos
-                        }   
-                        ?>
+                   
                 </tbody>
             </table>
         </div>            
