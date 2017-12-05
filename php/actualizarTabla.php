@@ -1,20 +1,20 @@
 <?php
     include ("Lista.php");
-    include ("conexion.php");
-       
+    include ("conexion.php");   
     if (!($link=mysqli_connect($server,$user,$pass,$db)))  
     {  
         echo "Error conectando a la base de datos.";  
         exit();  
     }  
     mysqli_set_charset($link, "utf8");
-    $query = "SELECT t.fechatransaccion, o.estado, o.distrito2, t.modelo, t.sintoma_cat1, t.sintoma_cat2, t.sintoma_cat3, t.resolucion, t.estado, t.estado_razon, t.almacen, o.usuario, t.usuariowindows, o.telefonocelular, t.numeroidentificacion_cliente, o.idpedido, t.prototipo, o.serviciotecnicoautorizado_id FROM (SELECT s.serviciotecnicoautorizado_id ,s.idpedido, s.solicitud_fecha, s.solicitud_tiempo, c.estado, c.distrito2,CONCAT(nombre, ' ', apellido) AS usuario, c.telefonocelular, c.numeroidentificacion FROM cliente c LEFT JOIN servicerequest s ON c.numeroidentificacion = s.numeroidentificacion_cliente) AS o , transaccion t where o.numeroidentificacion = t.numeroidentificacion_cliente";
+    // $query = "SELECT t.fechatransaccion, o.estado, o.distrito2, t.modelo, t.sintoma_cat1, t.sintoma_cat2, t.sintoma_cat3, t.resolucion, t.estado, t.estado_razon, t.almacen, o.usuario, t.usuariowindows, o.telefonocelular, t.numeroidentificacion_cliente, o.idpedido, t.prototipo, o.serviciotecnicoautorizado_id FROM (SELECT s.serviciotecnicoautorizado_id ,s.idpedido, s.solicitud_fecha, s.solicitud_tiempo, c.estado, c.distrito2,CONCAT(nombre, ' ', apellido) AS usuario, c.telefonocelular, c.numeroidentificacion FROM cliente c LEFT JOIN servicerequest s ON c.numeroidentificacion = s.numeroidentificacion_cliente) AS o , transaccion t where o.numeroidentificacion = t.numeroidentificacion_cliente";
+    $query = "select o.fechatransaccion, c.estado, c.distrito2, o.modelo, o.sintoma_cat1, o.sintoma_cat2, o.sintoma_cat3, o.resolucion, o.estado, o.estado_razon, o.almacen, CONCAT(c.nombre, ' ', c.apellido) AS usuario, o.usuariowindows, c.telefonocelular, o.numeroidentificacion_cliente, o.idpedido, o.prototipo, o.serviciotecnicoautorizado_id from (select t.fechatransaccion, t.modelo, t.sintoma_cat1, t.sintoma_cat2, t.sintoma_cat3, t.resolucion, t.estado, t.estado_razon, t.almacen, t.usuariowindows, t.numeroidentificacion_cliente, s.idpedido, t.prototipo, s.serviciotecnicoautorizado_id from  transaccion t LEFT JOIN servicerequest s ON t.idtransaccion = s.numerotransaccion_transaccion ) AS o, cliente c where o.numeroidentificacion_cliente = c.numeroidentificacion";
 
     if (isset($_POST['departamento']) and $_POST['departamento'] != '' ) {
         $departamentos = $_POST['departamento'];
         $query .= " AND (";
         foreach ( $departamentos as $valor ){
-            $query .= " o.estado = '".$valor."' OR";
+            $query .= " c.estado = '".$valor."' OR";
         }
         $query = substr($query,0,-2);
         $query .= " )";
@@ -23,7 +23,7 @@
         $ciudades = $_POST['ciudad'];
         $query .= " AND (";
         foreach ( $ciudades as $valor ){
-            $query .= " o.distrito2 = '".$valor."' OR";
+            $query .= " c.distrito2 = '".$valor."' OR";
         }
         $query = substr($query,0,-2);
         $query .= " )";
@@ -33,9 +33,9 @@
         $query .= " AND (";
         foreach ( $tipos as $valor ){
             if( $valor == "*Sin datos"){
-                $query .= " t.sintoma_cat1 = '' OR";
+                $query .= " o.sintoma_cat1 = '' OR";
             } else {
-                $query .= " t.sintoma_cat1 = '".$valor."' OR";
+                $query .= " o.sintoma_cat1 = '".$valor."' OR";
             }
         }
         $query = substr($query,0,-2);
@@ -48,9 +48,9 @@
         foreach ( $tipos as $valor ){
             
             if( $valor == "*Sin datos"){
-                $query .= " t.sintoma_cat3 = '' OR";
+                $query .= " o.sintoma_cat3 = '' OR";
             } else {
-                $query .= " t.sintoma_cat3 = '".$valor."' OR";
+                $query .= " o.sintoma_cat3 = '".$valor."' OR";
             }
         }
         $query = substr($query,0,-2);
@@ -64,9 +64,9 @@
         foreach ( $tipos as $valor ){
             
             if( $valor == "*Sin datos"){
-                $query .= " t.almacen = '' OR";
+                $query .= " o.almacen = '' OR";
             } else {
-                $query .= " t.almacen = '".$valor."' OR";
+                $query .= " o.almacen = '".$valor."' OR";
             }
         }
         $query = substr($query,0,-2);
@@ -74,11 +74,11 @@
     }
 
     if (isset($_POST['agente']) ) {
-        $query .= " AND t.usuariowindows LIKE '%".$_POST['agente']."%'";
+        $query .= " AND o.usuariowindows LIKE '%".$_POST['agente']."%'";
     }
 
     if (isset($_POST['cedula']) ) {
-        $query .= " AND t.numeroidentificacion_cliente LIKE '%".$_POST['cedula']."%'";
+        $query .= " AND o.numeroidentificacion_cliente LIKE '%".$_POST['cedula']."%'";
     }
 
     if (isset($_POST['estado']) and $_POST['estado'] != '' ) {
@@ -86,9 +86,9 @@
         $query .= " AND (";
         foreach ( $tipos as $valor ){
             if( $valor == "*Sin datos"){
-                $query .= " t.estado = '' OR";
+                $query .= " o.estado = '' OR";
             } else {
-                $query .= " t.estado = '".$valor."' OR";
+                $query .= " o.estado = '".$valor."' OR";
             }
         }
         $query = substr($query,0,-2);
@@ -96,7 +96,7 @@
     }
     
     if (isset($_POST['nombre']) and $_POST['nombre'] != '') {
-        $query .= " AND o.usuario LIKE '%".$_POST['nombre']."%'";
+        $query .= " AND c.usuario LIKE '%".$_POST['nombre']."%'";
     }
     if (isset($_POST['fecha1']) and $_POST['fecha1'] != '' ) {
         $fecha1 = $_POST['fecha1'];
@@ -111,7 +111,7 @@
             $query .= " COLLATE utf8_bin";
         }
     }
-    $query .= " ORDER BY t.fechatransaccion desc";
+    $query .= " ORDER BY o.fechatransaccion desc";
             
     $result = mysqli_query($link, $query);
 
@@ -140,6 +140,4 @@
         echo "</tr>";  
         // vacios: sin datos
     }     
-
-    // SELECT s.solicitud_fecha, s.solicitud_tiempo, estado, distrito2, CONCAT(apellido, ' ', nombre) AS usuario, c.telefonocelular FROM cliente c, servicerequest s WHERE c.numeroidentificacion = s.numeroidentificacion_cliente;
 ?>
