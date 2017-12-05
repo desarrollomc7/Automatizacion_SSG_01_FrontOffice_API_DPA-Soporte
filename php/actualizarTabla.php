@@ -1,32 +1,17 @@
 <?php
     include ("Lista.php");
     include ("conexion.php");
-    // $server = "10.164.62.124";
-    // $user = "root";
-    // $pass = "qwerty";
-    // $db = "samsung";
-    // // $server = "localhost";
-    // // $user = "root";
-    // // $pass = "";
-    // // $db = "samsung";
-    
+       
     if (!($link=mysqli_connect($server,$user,$pass,$db)))  
     {  
         echo "Error conectando a la base de datos.";  
         exit();  
     }  
     mysqli_set_charset($link, "utf8");
-    // $query = "SELECT numeroidentificacion, id, nombre, apellido, telefonocelular,estado, distrito2 FROM cliente";
-    // $query = "SELECT s.solicitud_fecha, s.solicitud_tiempo, estado, distrito2, CONCAT(apellido, ' ', nombre) AS usuario, c.telefonocelular FROM cliente c LEFT JOIN servicerequest s ON c.numeroidentificacion = s.numeroidentificacion_cliente";
-    // $query = "SELECT o.solicitud_fecha, o.solicitud_tiempo, o.estado, o.distrito2, t.modelo, t.sintoma_cat1, t.sintoma_cat2, t.almacen, o.usuario, o.telefonocelular FROM (SELECT s.solicitud_fecha, s.solicitud_tiempo, c.estado, c.distrito2,CONCAT(apellido, ' ', nombre) AS usuario, c.telefonocelular, c.numeroidentificacion FROM cliente c LEFT JOIN servicerequest s ON c.numeroidentificacion = s.numeroidentificacion_cliente) AS o , transaccion t WHERE o.numeroidentificacion = t.numeroidentificacion_cliente";
-    // $query = "SELECT o.solicitud_fecha, o.solicitud_tiempo, o.estado, o.distrito2, t.modelo, t.sintoma_cat1, t.sintoma_cat2, t.sintoma_cat3, t.resolucion, t.estado, t.estado_razon, t.almacen, o.usuario, t.usuariowindows, o.telefonocelular FROM (SELECT s.solicitud_fecha, s.solicitud_tiempo, c.estado, c.distrito2,CONCAT(nombre, ' ', apellido) AS usuario, c.telefonocelular, c.numeroidentificacion FROM cliente c LEFT JOIN servicerequest s ON c.numeroidentificacion = s.numeroidentificacion_cliente) AS o , transaccion t where o.numeroidentificacion = t.numeroidentificacion_cliente";
-    // $query = "SELECT t.fechatransaccion, o.estado, o.distrito2, t.modelo, t.sintoma_cat1, t.sintoma_cat2, t.sintoma_cat3, t.resolucion, t.estado, t.estado_razon, t.almacen, o.usuario, t.usuariowindows, o.telefonocelular, t.numeroidentificacion_cliente FROM (SELECT s.solicitud_fecha, s.solicitud_tiempo, c.estado, c.distrito2,CONCAT(nombre, ' ', apellido) AS usuario, c.telefonocelular, c.numeroidentificacion FROM cliente c LEFT JOIN servicerequest s ON c.numeroidentificacion = s.numeroidentificacion_cliente) AS o , transaccion t where o.numeroidentificacion = t.numeroidentificacion_cliente";
-    // $query = "SELECT t.fechatransaccion, o.estado, o.distrito2, t.modelo, t.sintoma_cat1, t.sintoma_cat2, t.sintoma_cat3, t.resolucion, t.estado, t.estado_razon, t.almacen, o.usuario, t.usuariowindows, o.telefonocelular, t.numeroidentificacion_cliente, o.idpedido, t.prototipo FROM (SELECT s.idpedido, s.solicitud_fecha, s.solicitud_tiempo, c.estado, c.distrito2,CONCAT(nombre, ' ', apellido) AS usuario, c.telefonocelular, c.numeroidentificacion FROM cliente c LEFT JOIN servicerequest s ON c.numeroidentificacion = s.numeroidentificacion_cliente) AS o , transaccion t where o.numeroidentificacion = t.numeroidentificacion_cliente";
     $query = "SELECT t.fechatransaccion, o.estado, o.distrito2, t.modelo, t.sintoma_cat1, t.sintoma_cat2, t.sintoma_cat3, t.resolucion, t.estado, t.estado_razon, t.almacen, o.usuario, t.usuariowindows, o.telefonocelular, t.numeroidentificacion_cliente, o.idpedido, t.prototipo, o.serviciotecnicoautorizado_id FROM (SELECT s.serviciotecnicoautorizado_id ,s.idpedido, s.solicitud_fecha, s.solicitud_tiempo, c.estado, c.distrito2,CONCAT(nombre, ' ', apellido) AS usuario, c.telefonocelular, c.numeroidentificacion FROM cliente c LEFT JOIN servicerequest s ON c.numeroidentificacion = s.numeroidentificacion_cliente) AS o , transaccion t where o.numeroidentificacion = t.numeroidentificacion_cliente";
 
     if (isset($_POST['departamento']) and $_POST['departamento'] != '' ) {
         $departamentos = $_POST['departamento'];
-        // $query .= " AND o.estado = '".$_POST['departamento']."'";
         $query .= " AND (";
         foreach ( $departamentos as $valor ){
             $query .= " o.estado = '".$valor."' OR";
@@ -35,10 +20,7 @@
         $query .= " )";
     }
     if (isset($_POST['ciudad']) and $_POST['ciudad'] != '' ) {
-        // $query .= " AND o.distrito2 = '".$_POST['ciudad']."'";
-        
         $ciudades = $_POST['ciudad'];
-        // $query .= " AND o.estado = '".$_POST['departamento']."'";
         $query .= " AND (";
         foreach ( $ciudades as $valor ){
             $query .= " o.distrito2 = '".$valor."' OR";
@@ -47,13 +29,9 @@
         $query .= " )";
     }
     if (isset($_POST['tipo1']) and $_POST['tipo1'] != '' ) {
-        
         $tipos = $_POST['tipo1'];
-        // $query .= " AND o.estado = '".$_POST['departamento']."'";
         $query .= " AND (";
         foreach ( $tipos as $valor ){
-            // $query .= " o.distrito2 = '".$valor."' OR";
-            
             if( $valor == "*Sin datos"){
                 $query .= " t.sintoma_cat1 = '' OR";
             } else {
@@ -62,24 +40,12 @@
         }
         $query = substr($query,0,-2);
         $query .= " )";
-        
-
-
-        // if( $_POST['tipo1'] == "*Sin datos"){
-        //     $query .= " AND t.sintoma_cat1 = ''";
-        // } else {
-        //     $query .= " AND t.sintoma_cat1 = '".$_POST['tipo1']."'";
-        // }
-
-
     }
     
     if (isset($_POST['tipo3']) and $_POST['tipo3'] != '' ) {
         $tipos = $_POST['tipo3'];
-        // $query .= " AND o.estado = '".$_POST['departamento']."'";
         $query .= " AND (";
         foreach ( $tipos as $valor ){
-            // $query .= " o.distrito2 = '".$valor."' OR";
             
             if( $valor == "*Sin datos"){
                 $query .= " t.sintoma_cat3 = '' OR";
@@ -94,10 +60,8 @@
     if (isset($_POST['almacen']) and $_POST['almacen'] != '' ) {
         
         $tipos = $_POST['almacen'];
-        // $query .= " AND o.estado = '".$_POST['departamento']."'";
         $query .= " AND (";
         foreach ( $tipos as $valor ){
-            // $query .= " o.distrito2 = '".$valor."' OR";
             
             if( $valor == "*Sin datos"){
                 $query .= " t.almacen = '' OR";
@@ -107,12 +71,6 @@
         }
         $query = substr($query,0,-2);
         $query .= " )";
-        
-        // if( $_POST['tipo2'] == "*Sin datos"){
-            //     $query .= " AND t.sintoma_cat2 = ''";
-            // } else {
-                //     $query .= " AND t.sintoma_cat2 = '".$_POST['tipo2']."'";
-                // }
     }
 
     if (isset($_POST['agente']) ) {
@@ -125,7 +83,6 @@
 
     if (isset($_POST['estado']) and $_POST['estado'] != '' ) {
         $tipos = $_POST['estado'];
-        // $query .= " AND o.estado = '".$_POST['departamento']."'";
         $query .= " AND (";
         foreach ( $tipos as $valor ){
             if( $valor == "*Sin datos"){
@@ -156,13 +113,6 @@
     }
     $query .= " ORDER BY t.fechatransaccion desc";
             
-            // if( isset($_POST['departamento'])){
-    //     echo "definido departamento \n";
-    // }
-    // if( empty($_POST['departamento'])){
-    //     echo "departamento vacio \n";
-    // }
-    // echo $query;
     $result = mysqli_query($link, $query);
 
     while ($row = mysqli_fetch_row($result)){   
