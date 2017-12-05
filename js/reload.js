@@ -145,11 +145,13 @@ function jEstado(val)
 var myVar;
 function buscar()
 {
+    // debugger;
     if( $('#fecha1').val() == "" && $('#fecha2').val() == "") {
         var d = new Date();
-        var t = d.getMonth() + 1;
-        var n = d.getFullYear() + "-" + t + "-" + d.getDate();
-        $('#fecha1').val(n);
+        var mes = d.getMonth() + 1;
+        var dia = ( d.getDate() < 10 ) ? "0" + d.getDate() : d.getDate();
+        var n = d.getFullYear() + "-" + mes + "-" + dia;
+        document.getElementById("fecha1").value = n;
     }
     document.getElementById("Tabla").click();
     $.ajax({
