@@ -167,7 +167,8 @@ function buscar()
             tipo3:$('#Tipo3').val(),
             almacen:$('#Almacen').val(),
             fecha1:$('#fecha1').val(),
-            fecha2:$('#fecha2').val()
+            fecha2:$('#fecha2').val(),
+            linea:$('input[name=linea]:checked').val()
         },
         success: function (response) {
             document.getElementById("Tabla").innerHTML=response; 

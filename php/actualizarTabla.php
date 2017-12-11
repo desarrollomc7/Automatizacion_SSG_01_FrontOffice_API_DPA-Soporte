@@ -106,6 +106,15 @@
         $fecha2 = $_POST['fecha2'];
         $query .= " AND fechatransaccion <= '".$fecha2."'";
     }
+    if ( isset($_POST['linea']) ) {
+        $linea = $_POST['linea'];
+        if( $linea == 'DTV' )
+            $query .= " AND o.modelo LIKE 'UN%' AND (o.modelo NOT LIKE 'UNK%' OR o.modelo = 'UNKNOWN VDE_LED')";
+        else if( $linea == 'II' )
+            $query .= " AND o.sintoma_cat1 = 'Instalación'";
+        else if( $linea == 'IH' )
+            $query .= " AND (o.sintoma_cat1 != 'Instalación' AND o.modelo != 'UNKNOWN VDE_LED') AND o.modelo NOT REGEXP 'UN[0-9]'";
+    }
     if (!empty($_POST['departamento']) ) {
         if (!isset($_POST['nombre']) ) {
             $query .= " COLLATE utf8_bin";

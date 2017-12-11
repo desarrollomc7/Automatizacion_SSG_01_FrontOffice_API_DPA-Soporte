@@ -196,17 +196,17 @@
         <div class="Bloque">
             <div>
                 <input type="radio" class="linea" id="II"
-                name="contact" value="II">
+                name="linea" value="II" checked>
                 <label class="labelLinea" for="II">II</label>
             </div>
             <div>
                 <input type="radio" class="linea" id="IH"
-                name="contact" value="IH">
+                name="linea" value="IH">
                 <label class="labelLinea" for="IH">IH</label>
             </div>
             <div>
                 <input type="radio" class="linea" id="DTV"
-                name="contact" value="DTV">
+                name="linea" value="DTV">
                 <label class="labelLinea" for="DTV">DTV</label>
             </div>
         </div>
