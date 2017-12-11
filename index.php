@@ -192,6 +192,24 @@
             <label for="fecha2">Fecha final</label>
             <input type="date" name="fecha2" id="fecha2">
         </div>
+
+        <div class="Bloque">
+            <div>
+                <input type="radio" class="linea" id="II"
+                name="contact" value="II">
+                <label class="labelLinea" for="II">II</label>
+            </div>
+            <div>
+                <input type="radio" class="linea" id="IH"
+                name="contact" value="IH">
+                <label class="labelLinea" for="IH">IH</label>
+            </div>
+            <div>
+                <input type="radio" class="linea" id="DTV"
+                name="contact" value="DTV">
+                <label class="labelLinea" for="DTV">DTV</label>
+            </div>
+        </div>
             
             <br>
             <button id="btnBuscar" class="otroBoton" onclick="buscar()">Buscar</button>

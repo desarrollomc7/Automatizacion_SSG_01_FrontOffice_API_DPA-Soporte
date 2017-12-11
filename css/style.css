@@ -30,6 +30,17 @@ input{
     width: 150px;
 }
 
+.linea{
+    margin: default;
+    width: auto;
+    vertical-align: middle;
+}
+
+.labelLinea{
+    display: inline-block;
+    height: 50px;
+}
+
 select {
     height: 200px;
     /* font-size: 16px; */
