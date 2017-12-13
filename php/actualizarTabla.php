@@ -109,7 +109,7 @@
     if ( isset($_POST['linea']) ) {
         $linea = $_POST['linea'];
         if( $linea == 'DTV' )
-            $query .= " AND o.modelo LIKE 'UN%' AND (o.modelo NOT LIKE 'UNK%' OR o.modelo = 'UNKNOWN VDE_LED')";
+            $query .= " AND o.modelo LIKE 'UN%' AND (o.modelo NOT LIKE 'UNK%' OR o.modelo = 'UNKNOWN VDE_LED' OR o.modelo = 'UNKNOWN VDE_LCD')";
         else if( $linea == 'II' )
             $query .= " AND o.sintoma_cat1 = 'Instalación'";
         else if( $linea == 'IH' )
