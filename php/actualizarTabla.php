@@ -8,7 +8,7 @@
     }  
     mysqli_set_charset($link, "utf8");
     // $query = "SELECT t.fechatransaccion, o.estado, o.distrito2, t.modelo, t.sintoma_cat1, t.sintoma_cat2, t.sintoma_cat3, t.resolucion, t.estado, t.estado_razon, t.almacen, o.usuario, t.usuariowindows, o.telefonocelular, t.numeroidentificacion_cliente, o.idpedido, t.prototipo, o.serviciotecnicoautorizado_id FROM (SELECT s.serviciotecnicoautorizado_id ,s.idpedido, s.solicitud_fecha, s.solicitud_tiempo, c.estado, c.distrito2,CONCAT(nombre, ' ', apellido) AS usuario, c.telefonocelular, c.numeroidentificacion FROM cliente c LEFT JOIN servicerequest s ON c.numeroidentificacion = s.numeroidentificacion_cliente) AS o , transaccion t where o.numeroidentificacion = t.numeroidentificacion_cliente";
-    $query = "select o.fechatransaccion, c.estado, c.distrito2, o.modelo, o.sintoma_cat1, o.sintoma_cat2, o.sintoma_cat3, o.resolucion, o.estado, o.estado_razon, o.almacen, CONCAT(c.nombre, ' ', c.apellido) AS usuario, o.usuariowindows, c.telefonocelular, o.numeroidentificacion_cliente, o.idpedido, o.prototipo, o.serviciotecnicoautorizado_id from (select t.fechatransaccion, t.modelo, t.sintoma_cat1, t.sintoma_cat2, t.sintoma_cat3, t.resolucion, t.estado, t.estado_razon, t.almacen, t.usuariowindows, t.numeroidentificacion_cliente, s.idpedido, t.prototipo, s.serviciotecnicoautorizado_id from  transaccion t LEFT JOIN servicerequest s ON t.idtransaccion = s.numerotransaccion_transaccion ) AS o, cliente c where o.numeroidentificacion_cliente = c.numeroidentificacion";
+    $query = "select o.fechatransaccion, c.estado, c.distrito2, o.modelo, o.sintoma_cat1, o.sintoma_cat2, o.sintoma_cat3, o.resolucion, o.estado, o.estado_razon, o.almacen, CONCAT(c.nombre, ' ', c.apellido) AS usuario, o.usuariowindows, c.telefonocelular, o.numeroidentificacion_cliente, o.idpedido, o.prototipo, o.serviciotecnicoautorizado_id, o.version from (select t.fechatransaccion, t.modelo, t.sintoma_cat1, t.sintoma_cat2, t.sintoma_cat3, t.resolucion, t.estado, t.estado_razon, t.almacen, t.usuariowindows, t.numeroidentificacion_cliente, s.idpedido, t.prototipo, s.serviciotecnicoautorizado_id, s.version from  transaccion t LEFT JOIN servicerequest s ON t.idtransaccion = s.numerotransaccion_transaccion ) AS o, cliente c where o.numeroidentificacion_cliente = c.numeroidentificacion";
 
     if (isset($_POST['departamento']) and $_POST['departamento'] != '' ) {
         $departamentos = $_POST['departamento'];
@@ -213,7 +213,7 @@
             vacio( $row[16] );  
             vacio( $row[15] );  
             vacio( $row[3] );  
-            vacio( '2.0' );  
+            vacio( $row[18] );  
             lista( $row[3] );
             vacio( $row[4] );  
             vacio( $row[5] );  
