@@ -222,8 +222,8 @@
         </div>
         
         <div id="table_wrapper">
-            <table id="Table">
-                <thead>
+            <table id="Tabla">
+                <!-- <thead>
                     <tr>  
                         <th>Fecha</th> 
                         <th>Hora</th> 
@@ -247,9 +247,9 @@
                         <th>Departamento</th>  
                     </tr>  
                 </thead>
-                <tbody id="Tabla">
+                <tbody>
                    
-                </tbody>
+                </tbody> -->
             </table>
         </div>            
     </body>
