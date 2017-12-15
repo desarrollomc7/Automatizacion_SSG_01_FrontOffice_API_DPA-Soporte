@@ -35,7 +35,13 @@
             }  
             mysqli_set_charset($link, "utf8");
             ?>
-        <button>Hola</button>
+        <div style="text-align: center; margin: 10px;" id="botones">
+            <h2>Seleccione el archivo a subir</h2>
+            <button class="Boton" onclick="seleccion('ASC')">ASC</button>
+            <button class="Boton" onclick="seleccion('TIPIFICACION')">TIPIFICACIÓN</button>
+            <button class="Boton" onclick="seleccion('PRODUCTOS')">DPA PRODUCTOS</button>
+        </div>
+
         <form enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
             <div>
                 <input type="file" id="data" name="data" accept=".csv">
@@ -47,6 +53,11 @@
                 <button class="otroBoton">Subir</button>
             </div>
         </form>
+
+        <div id="descripcion">
+            <h3 style="margin-left: 20px;">Descripción del archivo:</h3>
+        </div>
+
         <?php
             if( isset($_FILES['data']['name']) ) {
                 $dir_subida = 'C:/wamp64/www/samsung/';
@@ -55,7 +66,7 @@
 
                 echo '<div class="respuesta">';
                 if (copy($_FILES['data']['tmp_name'], $fichero_subido)) {
-                    $result = exec("..\Conversor.exe ..\TIPIFICACION.csv ..\temp.csv");
+                    $result = exec("..\Conversor.exe ../TIPIFICACION.csv ../temp.csv");
                     if( $result != "Completado..." ) {
                         echo "<p>Error convirtiendo archivo a UTF8</p>";
 						echo "<p>".$result."</p>";
@@ -116,6 +127,24 @@
             margin: 20px auto;
             width: 95%;
         }
+        .Boton{
+            background-color: #DDD;
+            color: #black;
+            padding: 10px 32px;
+            margin: 0 5px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 14px;
+            border: 0px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .active {
+            background-color: #0F21ff;
+            color: white;
+            cursor: pointer;
+        }
     </style>
     <script>
         var input = document.querySelector('input');
@@ -137,6 +166,20 @@
                 return (number/1024).toFixed(1) + ' KB';
             } else if(number > 1048576) {
                 return (number/1048576).toFixed(1) + ' MB';
+            }
+        }
+
+        function seleccion( opcion ) {
+            var num;
+            num = ( opcion == "ASC" ) ? 0 : ( ( opcion == "TIPIFICACION" ) ? 1 : 2); 
+            var boton = document.getElementsByTagName("button");
+            if( boton[num].className == "Boton active" ) {
+                boton[num].className = "Boton";
+            } else {
+                boton[0].className = "Boton";
+                boton[1].className = "Boton";
+                boton[2].className = "Boton";
+                boton[num].className += " active";
             }
         }
     </script>
