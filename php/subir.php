@@ -39,12 +39,12 @@
             <h2>Seleccione el archivo a subir</h2>
             <button class="Boton" onclick="seleccion('ASC')">ASC</button>
             <button class="Boton" onclick="seleccion('TIPIFICACION')">TIPIFICACIÓN</button>
-            <button class="Boton" onclick="seleccion('DPA PRODUCTOS')">DPA PRODUCTOS</button>
+            <button class="Boton" onclick="seleccion('PRODUCTOS')">PRODUCTOS</button>
         </div>
 
         <form enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-            <!-- <input name="opcion" id="opcion" style="display:none"></input> -->
-            <input name="opcion" id="opcion" ></input>
+            <input name="opcion" id="opcion" style="display:none"></input>
+            <!-- <input name="opcion" id="opcion" ></input> -->
             <div>
                 <input type="file" id="data" name="data" accept=".csv">
             </div>
@@ -63,17 +63,16 @@
         </div>
 
         <?php
-            echo $_POST['opcion'];
             if( isset($_FILES['data']['name']) && $_FILES['data']['name'] != "" ) {
                 $dir_subida = 'C:/wamp64/www/samsung/';
                 // $dir_subida = 'C:\\inetpub\\wwwroot\\samsung\\';
                 $fichero_subido = $dir_subida.basename("TIPIFICACION.csv");
 
-                echo '<div class="respuesta">';
+                echo '<div id="respuesta" style="display: block" >';
                 if (copy($_FILES['data']['tmp_name'], $fichero_subido)) {
-                    $result = exec("..\Conversor.exe ../TIPIFICACION.csv ../temp.csv");
+                    $result = exec("..\Conversor.exe ../TIPIFICACION.csv ../temp.csv ".$_POST['opcion']);
                     if( $result != "Completado..." ) {
-                        echo "<p>Error convirtiendo archivo a UTF8</p>";
+                        echo "<h2>Error en Archivo</h2>";
 						echo "<p>".$result."</p>";
                     } else {
 						// $query = "truncate samsung.asc";
@@ -124,11 +123,11 @@
             border: 1px solid black;
         }
 
-        form p, .respuesta > p {
+        form p, #respuesta > p {
             line-height: 32px;
             padding-left: 10px;
         }
-        .respuesta {
+        #respuesta {
             margin: 20px auto;
             width: 95%;
         }
@@ -155,6 +154,12 @@
             margin: 20px auto;
             width: 95%;
         }
+        
+        .mensaje{
+            background: #eee;
+            border: 1px solid black;
+            padding: 10px;
+        }
     </style>
     <script>
         var input = document.querySelectorAll('input')[1];
@@ -180,6 +185,9 @@
         }
 
         function seleccion( opcion ) {
+            if( document.getElementById("respuesta") ){
+                document.getElementById("respuesta").style.display = "none";
+            }
             var num;
             var titulo = document.getElementById("titulo");
             var texto = document.getElementById("texto_descripcion");
@@ -198,13 +206,13 @@
 
                 texto.style.display = "block";  
                 if( opcion == "ASC" ) {
-                    texto.innerHTML = "<p>TIPO DE SERVICIO;OG;ASC;Ciudad;Departamento;TIPO DE ORDEN;RELLAMADO;Almacen de compra;PRIORIDAD;RUTA;Observacion;Regional;LED;LCD;LFD;REF;WSM;DRY;SRA;DVM</p>";
+                    texto.innerHTML = "<p class='mensaje'>TIPO DE SERVICIO;OG;ASC;Ciudad;Departamento;TIPO DE ORDEN;RELLAMADO;Almacen de compra;PRIORIDAD;RUTA;Observacion;Regional;LED;LCD;LFD;REF;WSM;DRY;SRA;DVM</p>";
                     inputOpcion.value = "ASC";
                 } else if( opcion == "TIPIFICACION" ) {
-                    texto.innerHTML = "<p>producto;sintoma 1;sintoma 2;sintoma 3;sintoma 4;Procedimiento</p>";
+                    texto.innerHTML = "<p class='mensaje'>producto;sintoma 1;sintoma 2;sintoma 3;sintoma 4;Procedimiento</p>";
                     inputOpcion.value = "TIPIFICACION";
-                } else if( opcion == "DPA PRODUCTOS" ) {
-                    texto.innerHTML = "<p>PRODUCTOS;TIPO;PERTENECE</p>";
+                } else if( opcion == "PRODUCTOS" ) {
+                    texto.innerHTML = "<p class='mensaje'>PRODUCTOS;TIPO;PERTENECE</p>";
                     inputOpcion.value = "PRODUCTOS";
                 }
             }
