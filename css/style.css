@@ -27,11 +27,11 @@ input{
     height: 30px;
     font-size: 16px;
     margin: 10px;
-    width: 150px;
+    width: 90%;
 }
 
 .linea{
-    margin: default;
+    margin: 0;
     width: auto;
     vertical-align: middle;
 }
@@ -39,6 +39,7 @@ input{
 .labelLinea{
     display: inline-block;
     height: 50px;
+    width: 80%;
 }
 
 select {
@@ -51,12 +52,13 @@ select {
 
 .Bloque{
     display: inline-block;
-    padding: 0px 10px;;
-    /* width: 200px; */
+    padding: 0px 2px;;
+    width: 12%;
 }
 
 label, select {
     display: block;
+    width: 100%;
 }
 
 .otroBoton{
