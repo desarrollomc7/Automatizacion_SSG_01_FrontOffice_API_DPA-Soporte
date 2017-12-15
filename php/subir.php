@@ -84,31 +84,7 @@
                         } else
                         if( $tipo == "PRODUCTOS" ) {
                             productos();
-                        }
-
-						// $query = "truncate samsung.asc";
-						// $result = mysqli_query($link, $query);
-						if( $result == 0 ) {
-							echo "<p>Error Borrando base anterior. Escriba a diegofernando.rodriguez@grupodigitex.com</p>";
-						} else {
-							$query = "load data local infile 'C:\\inetpub\\wwwroot\\samsung\\temp.csv' into table samsung.asc CHARACTER set UTF8 fields terminated by ';' lines terminated by '\r\n' IGNORE 1 lines (`TIPO DE SERVICIO`,`OG`,`ASC`,`Ciudad`,`Departamento`,`TIPO DE ORDEN`,`RELLAMADO`,`Almacen de compra`,`PRIORIDAD`,`RUTA`,`Observacion`,`Regional`,`LED`,`LCD`,`LFD`,`REF`,`WSM`,`DRY`,`SRA`,`DVM`);";
-							$result = mysqli_query($link, $query);
-							if( $result == 0 ) {
-								echo "<p>Error subiendo CSV.</p>";
-								echo "<h3>Detalles:</h3>";
-								echo "<p>".mysqli_error($link)."</p>";
-								echo "<h4>Cómo solucionarlo</h4>";
-								echo "<h5>Solución 1:</h5>";
-								echo "<p>Cuando aparezca el mensaje <b>Invalid utf8 character string</b> abra el archivo CSV en algún editor de texto y busque la palabra que aparece despues del dos puntos (:) y verifique que no contenga simbolos especiales. guarde el archivo e intente de nuevo.</p>";
-								echo "<h5>Solución 2:</h5>";
-								echo "<p>Abra el archivo CSV en el bloc de notas, luego 'Guardar Como', luego en el campo 'Codificación' elija <b>UTF-8</b>. Guarde el archivo e intente de nuevo</p>";
-								echo "<h5>Solución 3:</h5>";
-								echo "<p>Si sigue sin solucionar el problema escriba a: <b>diegofernando.rodriguez@grupodigitex.com</b></p>";
-							} else {
-								echo "<p>Proceso Completado con Éxito</p>";
-							}
-							print "</div>";
-						}
+                        }						
 					}                    
                 } else {
                     echo "<p>No se pudo subir el archivo</p>";
@@ -116,15 +92,85 @@
             }
 
             function asc(){
-                echo "Funcion ASC";
+                global $link;
+                $query = "truncate samsung.asc";
+                $result = mysqli_query($link, $query);
+                if( $result == 0 ) {
+                    echo "<p>Error Borrando base anterior ASC. Escriba a diegofernando.rodriguez@grupodigitex.com</p>";
+                } else {
+                    // $query = "load data local infile 'C:/inetpub/wwwroot/samsung/temp.csv' into table samsung.asc CHARACTER set UTF8 fields terminated by ';' lines terminated by '\r\n' IGNORE 1 lines (`TIPO DE SERVICIO`,`OG`,`ASC`,`Ciudad`,`Departamento`,`TIPO DE ORDEN`,`RELLAMADO`,`Almacen de compra`,`PRIORIDAD`,`RUTA`,`Observacion`,`Regional`,`LED`,`LCD`,`LFD`,`REF`,`WSM`,`DRY`,`SRA`,`DVM`);";
+                    $query = "load data local infile 'C:/wamp64/www/samsung/temp.csv' into table samsung.asc CHARACTER set UTF8 fields terminated by ';' lines terminated by '\r\n' IGNORE 1 lines (`TIPO DE SERVICIO`,`OG`,`ASC`,`Ciudad`,`Departamento`,`TIPO DE ORDEN`,`RELLAMADO`,`Almacen de compra`,`PRIORIDAD`,`RUTA`,`Observacion`,`Regional`,`LED`,`LCD`,`LFD`,`REF`,`WSM`,`DRY`,`SRA`,`DVM`);";
+                    $result = mysqli_query($link, $query);
+                    if( $result == 0 ) {
+                        echo "<h2>Error subiendo a base de datos.</h2>";
+                        echo "<h3>Detalles:</h3>";
+                        echo "<p>".mysqli_error($link)."</p>";
+                        echo "<h4>Cómo solucionarlo</h4>";
+                        echo "<h5>Solución 1:</h5>";
+                        echo "<p class='mensaje' style='white-space: normal;'>Cuando aparezca el mensaje <b>Invalid utf8 character string</b> abra el archivo CSV en algún editor de texto y busque la palabra que aparece despues del dos puntos (:) y verifique que no contenga simbolos especiales. Guarde el archivo e intente de nuevo.</p>";
+                        echo "<h5>Solución 2:</h5>";
+                        echo "<p class='mensaje' style='white-space: normal;'>Abra el archivo CSV en el bloc de notas, luego 'Guardar Como', luego en el campo 'Codificación' elija <b>UTF-8. Guarde el archivo e intente de nuevo</p>";
+                        echo "<h5>Solución 3:</h5>";
+                        echo "<p class='mensaje' style='white-space: normal;'>Si sigue sin solucionar el problema escriba a: <b>diegofernando.rodriguez@grupodigitex.com</b></p>";
+                    } else {
+                        echo "<p class='mensaje'>Proceso Completado con Éxito</p>";
+                    }
+                    print "</div>";
+                }
             }
 
             function tipificacion(){
-
+                global $link;
+                $query = "truncate samsung.tipificacion";
+                $result = mysqli_query($link, $query);
+                if( $result == 0 ) {
+                    echo "<p>Error Borrando base anterior TIPIFICACION. Escriba a diegofernando.rodriguez@grupodigitex.com</p>";
+                } else {
+                    $query = "load data local infile 'C:/wamp64/www/samsung/temp.csv' into table samsung.tipificacion CHARACTER set UTF8 fields terminated by ';' lines terminated by '\r\n' IGNORE 1 lines (`producto`,`sintoma 1`,`sintoma 2`,`sintoma 3`,`sintoma 4`,`Procedimiento`);";
+                    $result = mysqli_query($link, $query);
+                    if( $result == 0 ) {
+                        echo "<h2>Error subiendo a base de datos.</h2>";
+                        echo "<h3>Detalles:</h3>";
+                        echo "<p>".mysqli_error($link)."</p>";
+                        echo "<h4>Cómo solucionarlo</h4>";
+                        echo "<h5>Solución 1:</h5>";
+                        echo "<p class='mensaje' style='white-space: normal;'>Cuando aparezca el mensaje <b>Invalid utf8 character string</b> abra el archivo CSV en algún editor de texto y busque la palabra que aparece despues del dos puntos (:) y verifique que no contenga simbolos especiales. Guarde el archivo e intente de nuevo.</p>";
+                        echo "<h5>Solución 2:</h5>";
+                        echo "<p class='mensaje' style='white-space: normal;'>Abra el archivo CSV en el bloc de notas, luego 'Guardar Como', luego en el campo 'Codificación' elija <b>UTF-8. Guarde el archivo e intente de nuevo</p>";
+                        echo "<h5>Solución 3:</h5>";
+                        echo "<p class='mensaje' style='white-space: normal;'>Si sigue sin solucionar el problema escriba a: <b>diegofernando.rodriguez@grupodigitex.com</b></p>";
+                    } else {
+                        echo "<p class='mensaje'>Proceso Completado con Éxito</p>";
+                    }
+                    print "</div>";
+                }
             }
 
             function productos(){
-                
+                global $link;
+                $query = "truncate samsung.dpa_productos";
+                $result = mysqli_query($link, $query);
+                if( $result == 0 ) {
+                    echo "<p>Error Borrando base anterior PRODUCTOS. Escriba a diegofernando.rodriguez@grupodigitex.com</p>";
+                } else {
+                    $query = "load data local infile 'C:/wamp64/www/samsung/temp.csv' into table samsung.dpa_productos CHARACTER set UTF8 fields terminated by ';' lines terminated by '\r\n' IGNORE 1 lines (`PRODUCTOS`,`TIPO`,`PERTENECE`);";
+                    $result = mysqli_query($link, $query);
+                    if( $result == 0 ) {
+                        echo "<h2>Error subiendo a base de datos.</h2>";
+                        echo "<h3>Detalles:</h3>";
+                        echo "<p>".mysqli_error($link)."</p>";
+                        echo "<h4>Cómo solucionarlo</h4>";
+                        echo "<h5>Solución 1:</h5>";
+                        echo "<p class='mensaje' style='white-space: normal;'>Cuando aparezca el mensaje <b>Invalid utf8 character string</b> abra el archivo CSV en algún editor de texto y busque la palabra que aparece despues del dos puntos (:) y verifique que no contenga simbolos especiales. Guarde el archivo e intente de nuevo.</p>";
+                        echo "<h5>Solución 2:</h5>";
+                        echo "<p class='mensaje' style='white-space: normal;'>Abra el archivo CSV en el bloc de notas, luego 'Guardar Como', luego en el campo 'Codificación' elija <b>UTF-8. Guarde el archivo e intente de nuevo</p>";
+                        echo "<h5>Solución 3:</h5>";
+                        echo "<p class='mensaje' style='white-space: normal;'>Si sigue sin solucionar el problema escriba a: <b>diegofernando.rodriguez@grupodigitex.com</b></p>";
+                    } else {
+                        echo "<p class='mensaje'>Proceso Completado con Éxito</p>";
+                    }
+                    print "</div>";
+                }
             }
         ?>
     </body>
