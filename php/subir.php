@@ -75,6 +75,17 @@
                         echo "<h2>Error en Archivo</h2>";
 						echo "<p>".$result."</p>";
                     } else {
+                        $tipo = $_POST['opcion'];
+                        if( $tipo == "ASC" ) {
+                            asc();
+                        } else
+                        if( $tipo == "TIPIFICACION" ) {
+                            tipificacion();
+                        } else
+                        if( $tipo == "PRODUCTOS" ) {
+                            productos();
+                        }
+
 						// $query = "truncate samsung.asc";
 						// $result = mysqli_query($link, $query);
 						if( $result == 0 ) {
@@ -102,6 +113,18 @@
                 } else {
                     echo "<p>No se pudo subir el archivo</p>";
                 }
+            }
+
+            function asc(){
+                echo "Funcion ASC";
+            }
+
+            function tipificacion(){
+
+            }
+
+            function productos(){
+                
             }
         ?>
     </body>
