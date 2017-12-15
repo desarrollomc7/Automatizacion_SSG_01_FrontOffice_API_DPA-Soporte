@@ -39,15 +39,17 @@
             <h2>Seleccione el archivo a subir</h2>
             <button class="Boton" onclick="seleccion('ASC')">ASC</button>
             <button class="Boton" onclick="seleccion('TIPIFICACION')">TIPIFICACIÓN</button>
-            <button class="Boton" onclick="seleccion('PRODUCTOS')">DPA PRODUCTOS</button>
+            <button class="Boton" onclick="seleccion('DPA PRODUCTOS')">DPA PRODUCTOS</button>
         </div>
 
         <form enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+            <!-- <input name="opcion" id="opcion" style="display:none"></input> -->
+            <input name="opcion" id="opcion" ></input>
             <div>
                 <input type="file" id="data" name="data" accept=".csv">
             </div>
             <div class="preview">
-                <p>No ha seleccionado ningún archivo</p>
+                <p id="Archivo">No ha seleccionado ningún archivo</p>
             </div>
             <div>
                 <button class="otroBoton">Subir</button>
@@ -55,11 +57,14 @@
         </form>
 
         <div id="descripcion">
-            <h3 style="margin-left: 20px;">Descripción del archivo:</h3>
+            <h3 style="margin-left: 20px; display:none" id="titulo">Descripción del archivo</h3>
+            <div id="texto_descripcion">
+            </div>
         </div>
 
         <?php
-            if( isset($_FILES['data']['name']) ) {
+            echo $_POST['opcion'];
+            if( isset($_FILES['data']['name']) && $_FILES['data']['name'] != "" ) {
                 $dir_subida = 'C:/wamp64/www/samsung/';
                 // $dir_subida = 'C:\\inetpub\\wwwroot\\samsung\\';
                 $fichero_subido = $dir_subida.basename("TIPIFICACION.csv");
@@ -71,15 +76,15 @@
                         echo "<p>Error convirtiendo archivo a UTF8</p>";
 						echo "<p>".$result."</p>";
                     } else {
-						$query = "truncate samsung.asc";
-						$result = mysqli_query($link, $query);
+						// $query = "truncate samsung.asc";
+						// $result = mysqli_query($link, $query);
 						if( $result == 0 ) {
 							echo "<p>Error Borrando base anterior. Escriba a diegofernando.rodriguez@grupodigitex.com</p>";
 						} else {
-							$query = "load data local infile 'C:/inetpub/wwwroot/samsung/temp.csv' into table samsung.asc CHARACTER set UTF8 fields terminated by ';' lines terminated by '\r\n' IGNORE 1 lines (`TIPO DE SERVICIO`,`OG`,`ASC`,`Ciudad`,`Departamento`,`TIPO DE ORDEN`,`RELLAMADO`,`Almacen de compra`,`PRIORIDAD`,`RUTA`,`Observacion`,`Regional`,`LED`,`LCD`,`LFD`,`REF`,`WSM`,`DRY`,`SRA`,`DVM`);";
+							$query = "load data local infile 'C:\\inetpub\\wwwroot\\samsung\\temp.csv' into table samsung.asc CHARACTER set UTF8 fields terminated by ';' lines terminated by '\r\n' IGNORE 1 lines (`TIPO DE SERVICIO`,`OG`,`ASC`,`Ciudad`,`Departamento`,`TIPO DE ORDEN`,`RELLAMADO`,`Almacen de compra`,`PRIORIDAD`,`RUTA`,`Observacion`,`Regional`,`LED`,`LCD`,`LFD`,`REF`,`WSM`,`DRY`,`SRA`,`DVM`);";
 							$result = mysqli_query($link, $query);
 							if( $result == 0 ) {
-								echo "<p>Formato incorrecto de CSV.</p>";
+								echo "<p>Error subiendo CSV.</p>";
 								echo "<h3>Detalles:</h3>";
 								echo "<p>".mysqli_error($link)."</p>";
 								echo "<h4>Cómo solucionarlo</h4>";
@@ -114,7 +119,7 @@
             border: 1px solid black;
         }
         
-        div > p {
+        #Archivo {
             background: #eee;
             border: 1px solid black;
         }
@@ -145,17 +150,22 @@
             color: white;
             cursor: pointer;
         }
+
+        #texto_descripcion {
+            margin: 20px auto;
+            width: 95%;
+        }
     </style>
     <script>
-        var input = document.querySelector('input');
-        var preview = document.querySelector('.preview');
+        var input = document.querySelectorAll('input')[1];
+        var preview = document.getElementById("Archivo");
 
         input.addEventListener('change', updateImageDisplay);
         
         function updateImageDisplay() {
             var curFiles = input.files;
             if(curFiles.length != 0) {
-                preview.children[0].textContent = curFiles[0].name + ', Tamaño ' + returnFileSize(curFiles[0].size) + '.';                
+                preview.textContent = curFiles[0].name + ', Tamaño ' + returnFileSize(curFiles[0].size) + '.';                
             }
         }
 
@@ -171,6 +181,9 @@
 
         function seleccion( opcion ) {
             var num;
+            var titulo = document.getElementById("titulo");
+            var texto = document.getElementById("texto_descripcion");
+            var inputOpcion = document.getElementById("opcion");
             num = ( opcion == "ASC" ) ? 0 : ( ( opcion == "TIPIFICACION" ) ? 1 : 2); 
             var boton = document.getElementsByTagName("button");
             if( boton[num].className == "Boton active" ) {
@@ -180,6 +193,20 @@
                 boton[1].className = "Boton";
                 boton[2].className = "Boton";
                 boton[num].className += " active";
+                titulo.innerHTML = "Encabezado de " + opcion ;
+                titulo.style.display = "block";
+
+                texto.style.display = "block";  
+                if( opcion == "ASC" ) {
+                    texto.innerHTML = "<p>TIPO DE SERVICIO;OG;ASC;Ciudad;Departamento;TIPO DE ORDEN;RELLAMADO;Almacen de compra;PRIORIDAD;RUTA;Observacion;Regional;LED;LCD;LFD;REF;WSM;DRY;SRA;DVM</p>";
+                    inputOpcion.value = "ASC";
+                } else if( opcion == "TIPIFICACION" ) {
+                    texto.innerHTML = "<p>producto;sintoma 1;sintoma 2;sintoma 3;sintoma 4;Procedimiento</p>";
+                    inputOpcion.value = "TIPIFICACION";
+                } else if( opcion == "DPA PRODUCTOS" ) {
+                    texto.innerHTML = "<p>PRODUCTOS;TIPO;PERTENECE</p>";
+                    inputOpcion.value = "PRODUCTOS";
+                }
             }
         }
     </script>
