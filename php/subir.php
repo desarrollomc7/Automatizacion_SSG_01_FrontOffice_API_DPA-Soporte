@@ -159,6 +159,7 @@
             background: #eee;
             border: 1px solid black;
             padding: 10px;
+            white-space: pre;
         }
     </style>
     <script>
