@@ -123,7 +123,22 @@ td {
 }
 
 td:first-child {
+    min-width: 80px;
+}
+
+td:nth-child(8),td:nth-child(9),td:nth-child(10),td:nth-child(11) {
+    min-width: 250px;
+}
+
+td:nth-child(3) {
+    min-width: 81px;
+}
+td:nth-child(5) {
     min-width: 90px;
+}
+
+td:nth-child(16) {
+    min-width: 230px;
 }
 
 tr:hover {
