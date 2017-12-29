@@ -113,7 +113,9 @@
         else if( $linea == 'II' )
             $query .= " AND o.sintoma_cat1 = 'Instalación'";
         else if( $linea == 'IH' )
-            $query .= " AND (o.sintoma_cat1 != 'Instalación' AND o.modelo != 'UNKNOWN VDE_LED') AND o.modelo NOT REGEXP 'UN[0-9]'";
+            $query .= " AND (o.sintoma_cat1 != 'Instalación' AND o.modelo != 'UNKNOWN VDE_LED' AND o.modelo != 'UNKNOWN VDE_LCD' AND o.modelo != 'UNKNOWN HHP_HHP' AND o.modelo NOT LIKE 'GT-%' AND o.modelo NOT LIKE 'SGH-%' AND o.modelo NOT LIKE 'SM-%') AND o.modelo NOT REGEXP 'UN[0-9]'";
+        else if( $linea == 'HHP' )
+            $query .= " AND (o.modelo = 'UNKNOWN HHP_HHP' OR o.modelo LIKE 'GT-%' OR o.modelo LIKE 'SGH-%' OR o.modelo LIKE 'SM-%')";
     }
     if (!empty($_POST['departamento']) ) {
         if (!isset($_POST['nombre']) ) {
@@ -121,9 +123,9 @@
         }
     }
     $query .= " ORDER BY o.fechatransaccion desc";
-            
+    // echo $query;
     $result = mysqli_query($link, $query);
-    if( $_POST['linea'] == 'II' || $_POST['linea'] == 'IH' ) {
+    if( $_POST['linea'] == 'II' || $_POST['linea'] == 'IH' || $_POST['linea'] == 'HHP' ) {
         echo "<thead>
                 <tr>  
                     <th>Fecha</th> 

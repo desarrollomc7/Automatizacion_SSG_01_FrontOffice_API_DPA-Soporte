@@ -203,12 +203,17 @@
             <div>
                 <input type="radio" class="linea" id="IH"
                 name="linea" value="IH">
-                <label class="labelLinea" for="IH">IH</label>
+                <label class="labelLinea" for="IH">HA</label>
             </div>
             <div>
                 <input type="radio" class="linea" id="DTV"
                 name="linea" value="DTV">
                 <label class="labelLinea" for="DTV">DTV</label>
+            </div>
+            <div>
+                <input type="radio" class="linea" id="HHP"
+                name="linea" value="HHP">
+                <label class="labelLinea" for="HHP">HHP</label>
             </div>
         </div>
             
