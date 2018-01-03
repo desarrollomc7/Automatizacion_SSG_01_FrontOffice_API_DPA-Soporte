@@ -215,6 +215,11 @@
                 name="linea" value="HHP">
                 <label class="labelLinea" for="HHP">HHP</label>
             </div>
+            <div>
+                <input type="radio" class="linea" id="ALL"
+                name="linea" value="ALL">
+                <label class="labelLinea" for="ALL">TODOS</label>
+            </div>
         </div>
             
             <br>

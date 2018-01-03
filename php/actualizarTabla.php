@@ -235,4 +235,58 @@
         }     
         echo "</tbody>";
     }
+    elseif ( $_POST['linea'] == 'ALL' ) {
+        echo "<thead>
+            <tr>  
+                <th>Fecha</th> 
+                <th>Hora</th> 
+                <th>ASC</th> 
+                <th>Tipo</th> 
+                <th>Orden</th> 
+                <th>Modelo</th> 
+                <th>Tipo de producto</th>  
+                <th>Tipología 1</th>  
+                <th>Tipología 2</th>  
+                <th>Tipología 3</th>  
+                <th>Resolución</th>  
+                <th>Estado</th>  
+                <th>Razón</th>  
+                <th>Almacén</th>  
+                <th>Agente</th>  
+                <th>Cliente</th>  
+                <th>Cédula</th>  
+                <th>Teléfono</th>  
+                <th>Ciudad</th>  
+                <th>Departamento</th>  
+            </tr>  
+        </thead>
+        <tbody>";
+            
+        while ($row = mysqli_fetch_row($result)){   
+            echo "<tr>";  
+            vacio( substr($row[0], 0, 10) );  
+            vacio( substr($row[0], -8) );  
+            vacio( $row[17] );  
+            vacio( $row[16] );  
+            vacio( $row[15] );  
+            vacio( $row[3] );   
+            lista( $row[3] );
+            vacio( $row[4] );  
+            vacio( $row[5] );  
+            vacio( $row[6] );  
+            vacio( $row[7] );  
+            vacio( $row[8] );  
+            vacio( $row[9] );  
+            vacio( $row[10] );  
+            vacio( $row[12] );  
+            vacio( $row[11] );  
+            vacio( $row[14] );  
+            vacio( $row[13] );  
+            vacio( $row[2] );
+            vacio( $row[1] );  
+            echo "</tr>";  
+            // vacios: sin datos
+        }     
+        echo "</tbody>";
+    }
 ?>

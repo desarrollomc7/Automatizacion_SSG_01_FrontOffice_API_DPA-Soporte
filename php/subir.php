@@ -48,8 +48,14 @@
             <div>
                 <input type="file" id="data" name="data" accept=".csv">
             </div>
+            <div>
+                <label><b>Archivo en línea desde el:</b></label>
+                <input class="fechaHora" type="date" id="fecha">
+                <span><b> a la(s) </b></span>
+                <input class="fechaHora" type="time" id="hora">
+            </div>
             <div class="preview">
-                <p id="Archivo">No ha seleccionado ningún archivo</p>
+                <p id="Archivo">No ha seleccionado ningún archivo. Fecha y hora no pueden ir vacios</p>
             </div>
             <div>
                 <button class="otroBoton">Subir</button>
@@ -61,6 +67,8 @@
             <div id="texto_descripcion">
             </div>
         </div>
+
+        <a href="../TIPIFICACION.csv" download> Descargar archivo actual</a>
 
         <?php
             if( isset($_FILES['data']['name']) && $_FILES['data']['name'] != "" ) {
@@ -187,6 +195,11 @@
             border: 1px solid black;
         }
         
+        .fechaHora {
+            width: auto;
+            margin-top: 10px;
+        }
+
         #Archivo {
             background: #eee;
             border: 1px solid black;
