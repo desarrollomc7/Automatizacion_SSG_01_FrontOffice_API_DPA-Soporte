@@ -44,15 +44,14 @@
 
         <form enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
             <input name="opcion" id="opcion" style="display:none"></input>
-            <!-- <input name="opcion" id="opcion" ></input> -->
             <div>
                 <input type="file" id="data" name="data" accept=".csv">
             </div>
-            <div>
+            <div id="fechas">
                 <label><b>Archivo en línea desde el:</b></label>
-                <input class="fechaHora" type="date" id="fecha">
+                <input class="fechaHora" type="date" name="fecha" id="fecha"></input>
                 <span><b> a la(s) </b></span>
-                <input class="fechaHora" type="time" id="hora">
+                <input class="fechaHora" type="time" name="hora" id="hora"></input>
             </div>
             <div class="preview">
                 <p id="Archivo">No ha seleccionado ningún archivo. Fecha y hora no pueden ir vacios</p>
@@ -68,17 +67,17 @@
             </div>
         </div>
 
-        <a href="../TIPIFICACION.csv" download> Descargar archivo actual</a>
-
         <?php
             if( isset($_FILES['data']['name']) && $_FILES['data']['name'] != "" ) {
-                $dir_subida = 'C:/wamp64/www/samsung/';
+                $dir_subida = 'C:/wamp64/www/samsung/data/';
                 // $dir_subida = 'C:\\inetpub\\wwwroot\\samsung\\';
-                $fichero_subido = $dir_subida.basename("TIPIFICACION.csv");
+                $nombre = "ASC_".$_POST['fecha']."_".$_POST['hora'].".csv";
+                $nombre = str_replace(":","-",$nombre);
+                $fichero_subido = $dir_subida.basename($nombre);
 
                 echo '<div id="respuesta" style="display: block" >';
                 if (copy($_FILES['data']['tmp_name'], $fichero_subido)) {
-                    $result = exec("..\Conversor.exe ../TIPIFICACION.csv ../temp.csv ".$_POST['opcion']);
+                    $result = exec("..\Conversor.exe ../data/".$nombre." ../temp.csv ".$_POST['opcion']);
                     if( $result != "Completado..." ) {
                         echo "<h2>Error en Archivo</h2>";
 						echo "<p>".$result."</p>";
@@ -257,6 +256,10 @@
             }
         }
 
+        function mostrarFecha(){
+           
+        }
+
         function returnFileSize(number) {
             if(number < 1024) {
                 return number + ' bytes';
@@ -268,6 +271,12 @@
         }
 
         function seleccion( opcion ) {
+            if( opcion == "ASC" ) {
+                document.getElementById("fechas").style.display = "block";
+            } else {
+                document.getElementById("fechas").style.display = "none";
+            }
+
             if( document.getElementById("respuesta") ){
                 document.getElementById("respuesta").style.display = "none";
             }
