@@ -10,15 +10,17 @@
             if( count($files) > 0 ) {
                 foreach( $files as $file ) {
                     if( is_file("$path/$file") ) {
-                        $file = str_replace("ASC_","",$file);
-                        $file = str_replace("_"," ",$file);
-                        $file = str_replace(".csv","",$file);
-                        $file[13] = ":";
+                        $temp = str_replace("ASC_","",$file);
+                        $temp = str_replace("_"," ",$temp);
+                        $temp = str_replace(".csv","",$temp);
+                        $temp[13] = ":";
                         echo "<div id='opcion'>
                                 <img src='../img/icon-csv.png' alt='icono csv'>
-                                <p>$file</p>
+                                <p>$temp</p>
                                 <img class='arrow' src='../img/up.png' alt='Subir' title='Subir CSV'>
-                                <img class='arrow' src='../img/down.png' alt='Descargar csv' title='Descargar CSV'>
+                                <a href='../data/".$_POST['opc']."/$file'>
+                                    <img class='arrow' src='../img/down.png' alt='Descargar csv' title='Descargar CSV'>
+                                </a>
                                 <img class='arrow' src='../img/x.png' alt='Eliminar' title='Eliminar CSV'>
                             </div>";
                     }

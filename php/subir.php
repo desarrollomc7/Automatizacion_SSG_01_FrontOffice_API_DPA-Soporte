@@ -263,7 +263,7 @@
             font-size: 18px;
         }
 
-        #opcion > img {
+        #opcion > img , #opcion > a > img {
             display: inline-block;
             height: 20px;
         }
@@ -373,6 +373,10 @@
                     inputOpcion.value = "PRODUCTOS";
                 }
             }
+        }
+
+        function accionArchivo( archivo ) {
+            alert( archivo );
         }
     </script>
 </html>
