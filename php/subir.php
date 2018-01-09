@@ -16,6 +16,7 @@
         <title>Samsung - Reportes</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="../css/style.css"> 
+        <link rel="stylesheet" type="text/css" href="../css/subir.css"> 
         <link href="https://fonts.googleapis.com/css?family=Encode+Sans" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     </head>
@@ -183,99 +184,15 @@
                 }
             }
         ?>
+        <div class="alert" id="error" style="display:none">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+            <strong>Error!</strong> No se pudo eliminar el archivo.
+        </div>
+        <div class="alert ok" id="ok" style="display:none">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+            <strong>Completado!</strong> Archivo eliminado con éxito.
+        </div>
     </body>
-
-    <style>
-        input {
-            margin: 0px;
-        }
-        form {
-            width: 600px;
-            background: #aaa;
-            margin: 20px auto;
-            padding: 20px;
-            border: 1px solid black;
-        }
-        
-        .fechaHora {
-            width: auto;
-            margin-top: 10px;
-        }
-
-        #Archivo {
-            background: #eee;
-            border: 1px solid black;
-        }
-
-        form p, #respuesta > p {
-            line-height: 32px;
-            padding-left: 10px;
-        }
-        #respuesta {
-            margin: 20px auto;
-            width: 95%;
-        }
-        .Boton{
-            background-color: #DDD;
-            color: #black;
-            padding: 10px 32px;
-            margin: 0 5px;
-            text-align: center;
-            text-decoration: none;
-            font-size: 14px;
-            border: 0px;
-            outline: none;
-            cursor: pointer;
-        }
-
-        .active {
-            background-color: #0F21ff;
-            color: white;
-            cursor: pointer;
-        }
-
-        #texto_descripcion {
-            margin: 20px auto;
-            width: 95%;
-            text-align: center;
-        }
-        
-        .mensaje{
-            background: #eee;
-            border: 1px solid black;
-            padding: 10px;
-            white-space: pre;
-        }
-
-        #opcion{
-            width: 340px;
-            padding: 20px;
-            background-color: bisque;
-            display: inline-block;
-            margin: 10px;
-        }
-
-        #opcion > p {
-            margin: 0px;
-            display: inline-block;
-            margin-left: 10px;
-            margin-right: 30px;
-            font-size: 18px;
-        }
-
-        #opcion > img , #opcion > a > img {
-            display: inline-block;
-            height: 20px;
-        }
-
-        .arrow{
-            margin-left: 5px;
-        }
-
-        .arrow:hover{
-            cursor: pointer;
-        }
-    </style>
     <script>
         var input = document.querySelectorAll('input')[1];
         var preview = document.getElementById("Archivo");
@@ -377,6 +294,32 @@
 
         function accionArchivo( archivo ) {
             alert( archivo );
+        }
+
+        function eliminarArchivo( archivo ) {
+            $.ajax({
+                type: 'post',
+                url: 'eliminarArchivo.php', 
+                data: {
+                    file:archivo
+                },
+                success: function (response) {
+                    if( response == "error" ) {
+                        document.getElementById("error").style.display = "block";
+                        setTimeout(() => {
+                            document.getElementById("error").style.display = "none";
+                        }, 5000);
+                    } else {
+                        document.getElementById("ok").style.display = "block";
+                        setTimeout(() => {
+                            document.getElementById("ok").style.display = "none";
+                        }, 5000);
+                        var opcion = document.getElementById("opcion").value;
+                        seleccion(opcion);
+                        seleccion(opcion);
+                    }
+                }
+            });
         }
     </script>
 </html>

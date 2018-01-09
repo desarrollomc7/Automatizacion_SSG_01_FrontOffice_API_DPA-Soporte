@@ -18,15 +18,15 @@
                                 <img src='../img/icon-csv.png' alt='icono csv'>
                                 <p>$temp</p>
                                 <img class='arrow' src='../img/up.png' alt='Subir' title='Subir CSV'>
-                                <a href='../data/".$_POST['opc']."/$file'>
+                                <a href='../data/".$_POST['opc']."/$file' download>
                                     <img class='arrow' src='../img/down.png' alt='Descargar csv' title='Descargar CSV'>
                                 </a>
-                                <img class='arrow' src='../img/x.png' alt='Eliminar' title='Eliminar CSV'>
+                                <img class='arrow' src='../img/x.png' alt='Eliminar' title='Eliminar CSV' onclick=\"eliminarArchivo('../data/".$_POST['opc']."/$file')\">
                             </div>";
                     }
                 }
             } else {
-                echo "<h3>ERROR: No hay archivos a listar</h3>";
+                echo "<h3>No hay archivos a listar</h3>";
             }
         } else {
             echo "<h3>ERROR: No existe el directorio</h3>";
