@@ -69,7 +69,7 @@
 
         <?php
             if( isset($_FILES['data']['name']) && $_FILES['data']['name'] != "" ) {
-                $dir_subida = 'C:/wamp64/www/samsung/data/';
+                $dir_subida = 'C:/wamp64/www/samsung/data/asc/';
                 // $dir_subida = 'C:\\inetpub\\wwwroot\\samsung\\';
                 $nombre = "ASC_".$_POST['fecha']."_".$_POST['hora'].".csv";
                 $nombre = str_replace(":","-",$nombre);
@@ -77,7 +77,7 @@
 
                 echo '<div id="respuesta" style="display: block" >';
                 if (copy($_FILES['data']['tmp_name'], $fichero_subido)) {
-                    $result = exec("..\Conversor.exe ../data/".$nombre." ../temp.csv ".$_POST['opcion']);
+                    $result = exec("..\Conversor.exe ../data/asc/".$nombre." ../temp.csv ".$_POST['opcion']);
                     if( $result != "Completado..." ) {
                         echo "<h2>Error en Archivo</h2>";
 						echo "<p>".$result."</p>";
@@ -242,6 +242,35 @@
             padding: 10px;
             white-space: pre;
         }
+
+        #opcion{
+            width: 330px;
+            padding: 20px;
+            background-color: bisque;
+            display: inline-block;
+            margin: 10px;
+        }
+
+        #opcion > p {
+            margin: 0px;
+            display: inline-block;
+            margin-left: 10px;
+            margin-right: 30px;
+            font-size: 18px;
+        }
+
+        #opcion > img {
+            display: inline-block;
+            height: 20px;
+        }
+
+        .arrow{
+            margin-left: 5px;
+        }
+
+        .arrow:hover{
+            cursor: pointer;
+        }
     </style>
     <script>
         var input = document.querySelectorAll('input')[1];
@@ -295,6 +324,18 @@
                 texto.style.display = "block";  
                 if( opcion == "ASC" ) {
                     texto.innerHTML = "<p class='mensaje'>TIPO DE SERVICIO;OG;ASC;Ciudad;Departamento;TIPO DE ORDEN;RELLAMADO;Almacen de compra;PRIORIDAD;RUTA;Observacion;Regional;LED;LCD;LFD;REF;WSM;DRY;SRA;DVM</p>";
+
+                    $.ajax({
+                        type: 'post',
+                        url: 'files.php',
+                        data: {
+                            opc:opcion
+                        },
+                        success: function (response) {
+                            texto.innerHTML += response; 
+                        }
+                    });
+                    
                     inputOpcion.value = "ASC";
                 } else if( opcion == "TIPIFICACION" ) {
                     texto.innerHTML = "<p class='mensaje'>producto;sintoma 1;sintoma 2;sintoma 3;sintoma 4;Procedimiento</p>";
