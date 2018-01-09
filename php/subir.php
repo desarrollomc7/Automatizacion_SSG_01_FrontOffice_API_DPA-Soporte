@@ -47,7 +47,7 @@
             <div>
                 <input type="file" id="data" name="data" accept=".csv">
             </div>
-            <div id="fechas">
+            <div id="fechas" style="display:none">
                 <label><b>Archivo en línea desde el:</b></label>
                 <input class="fechaHora" type="date" name="fecha" id="fecha"></input>
                 <span><b> a la(s) </b></span>
@@ -254,10 +254,6 @@
             if(curFiles.length != 0) {
                 preview.textContent = curFiles[0].name + ', Tamaño ' + returnFileSize(curFiles[0].size) + '.';                
             }
-        }
-
-        function mostrarFecha(){
-           
         }
 
         function returnFileSize(number) {
