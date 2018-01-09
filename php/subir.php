@@ -48,7 +48,9 @@
                 <input type="file" id="data" name="data" accept=".csv">
             </div>
             <div id="fechas" style="display:none">
-                <label><b>Archivo en línea desde el:</b></label>
+                <!-- <label> -->
+                    <b>Activo desde:</b>
+                <!-- </label> -->
                 <input class="fechaHora" type="date" name="fecha" id="fecha"></input>
                 <span><b> a la(s) </b></span>
                 <input class="fechaHora" type="time" name="hora" id="hora"></input>
@@ -58,6 +60,7 @@
             </div>
             <div>
                 <button class="otroBoton">Subir</button>
+                <button class="otroBoton">Activar ahora</button>
             </div>
         </form>
 
@@ -234,6 +237,7 @@
         #texto_descripcion {
             margin: 20px auto;
             width: 95%;
+            text-align: center;
         }
         
         .mensaje{
@@ -244,7 +248,7 @@
         }
 
         #opcion{
-            width: 330px;
+            width: 340px;
             padding: 20px;
             background-color: bisque;
             display: inline-block;
@@ -339,9 +343,33 @@
                     inputOpcion.value = "ASC";
                 } else if( opcion == "TIPIFICACION" ) {
                     texto.innerHTML = "<p class='mensaje'>producto;sintoma 1;sintoma 2;sintoma 3;sintoma 4;Procedimiento</p>";
+
+                    $.ajax({
+                        type: 'post',
+                        url: 'files.php',
+                        data: {
+                            opc:opcion
+                        },
+                        success: function (response) {
+                            texto.innerHTML += response; 
+                        }
+                    });
+
                     inputOpcion.value = "TIPIFICACION";
                 } else if( opcion == "PRODUCTOS" ) {
                     texto.innerHTML = "<p class='mensaje'>PRODUCTOS;TIPO;PERTENECE</p>";
+
+                    $.ajax({
+                        type: 'post',
+                        url: 'files.php',
+                        data: {
+                            opc:opcion
+                        },
+                        success: function (response) {
+                            texto.innerHTML += response; 
+                        }
+                    });
+
                     inputOpcion.value = "PRODUCTOS";
                 }
             }
