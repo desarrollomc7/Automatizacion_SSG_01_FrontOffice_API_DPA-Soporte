@@ -75,7 +75,8 @@ form p, #respuesta > p {
     font-size: 18px;
 }
 
-#opcion > img , #opcion > a > img {
+/* #opcion > img , #opcion > a > img, #opcion > label > img { */
+img {
     display: inline-block;
     height: 20px;
 }
@@ -116,4 +117,17 @@ form p, #respuesta > p {
 
 .closebtn:hover {
     color: black;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.labelFlecha {
+    display: inline;
 }

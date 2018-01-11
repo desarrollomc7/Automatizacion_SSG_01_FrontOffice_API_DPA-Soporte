@@ -192,6 +192,8 @@
             <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
             <strong>Completado!</strong> Archivo eliminado con éxito.
         </div>
+        <div id="mensajes">
+        </div>
     </body>
     <script>
         var input = document.querySelectorAll('input')[1];
@@ -292,8 +294,20 @@
             }
         }
 
-        function accionArchivo( archivo ) {
-            alert( archivo );
+        function subirArchivo( tipo ,path ) {
+            var data = new FormData();
+            data.append("tipo", tipo);
+            data.append("path", path);
+            data.append("file", document.getElementById(path).files[0]);
+            var request = new XMLHttpRequest();
+            request.open("POST","cargarArchivo.php", true);
+
+            request.onreadystatechange = function() {
+                if(request.readyState==4 && request.status==200) {
+                    document.getElementById("mensajes").innerHTML = request.response;
+                }
+            };
+            request.send( data );
         }
 
         function eliminarArchivo( archivo ) {

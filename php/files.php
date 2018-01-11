@@ -3,7 +3,6 @@
 
     function listarArchivos( $path ) {
         if( file_exists( $path ) && is_dir( $path ) ) {
-            echo "<br>";
             $result = scandir( $path );
             $files = array_diff( $result, array(".","..") );
 
@@ -17,7 +16,10 @@
                         echo "<div id='opcion'>
                                 <img src='../img/icon-csv.png' alt='icono csv'>
                                 <p>$temp</p>
-                                <img class='arrow' src='../img/up.png' alt='Subir' title='Subir CSV'>
+                                <input class='inputfile' type='file' id=$file accept='.csv' onchange=\"subirArchivo('".$_POST['opc']."','$file')\">
+                                <label class='labelFlecha' for=$file>
+                                    <img class='arrow' src='../img/up.png' alt='Subir' title='Subir CSV'>
+                                </label>
                                 <a href='../data/".$_POST['opc']."/$file' download>
                                     <img class='arrow' src='../img/down.png' alt='Descargar csv' title='Descargar CSV'>
                                 </a>
