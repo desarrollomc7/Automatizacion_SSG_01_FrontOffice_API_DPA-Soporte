@@ -26,15 +26,15 @@
         </header>
 
         <?php 
-            include("conexion.php");
-            header('Content-Type: text/html; charset=UTF-8'); 
+            // include("conexion.php");
+            // header('Content-Type: text/html; charset=UTF-8'); 
             
-            if (!($link=mysqli_connect($server,$user,$pass,$db)))  
-            {  
-                echo "Error conectando a la base de datos.";  
-                exit();  
-            }  
-            mysqli_set_charset($link, "utf8");
+            // if (!($link=mysqli_connect($server,$user,$pass,$db)))  
+            // {  
+            //     echo "Error conectando a la base de datos.";  
+            //     exit();  
+            // }  
+            // mysqli_set_charset($link, "utf8");
             ?>
         <div style="text-align: center; margin: 10px;" id="botones">
             <h2>Seleccione el archivo a subir</h2>
@@ -43,7 +43,8 @@
             <button class="Boton" onclick="seleccion('PRODUCTOS')">PRODUCTOS</button>
         </div>
 
-        <form enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+        <!-- <form enctype="multipart/form-data" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST"> -->
+        <div id="form">
             <input name="opcion" id="opcion" style="display:none"></input>
             <div>
                 <input type="file" id="data" name="data" accept=".csv">
@@ -57,13 +58,13 @@
                 <input class="fechaHora" type="time" name="hora" id="hora"></input>
             </div>
             <div class="preview">
-                <p id="Archivo">No ha seleccionado ningún archivo. Fecha y hora no pueden ir vacios</p>
+                <p id="Archivo">No ha seleccionado ningún archivo.</p>
             </div>
             <div>
-                <button class="otroBoton">Subir</button>
+                <button class="otroBoton" id="subir" onclick="subir()">Subir</button>
                 <button class="otroBoton">Activar ahora</button>
             </div>
-        </form>
+        </div>
 
         <div id="descripcion">
             <h3 style="margin-left: 20px; display:none" id="titulo">Descripción del archivo</h3>
@@ -184,6 +185,7 @@
                 }
             }
         ?>
+
         <div class="alert" id="error" style="display:none">
             <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
             <strong>Error!</strong> No se pudo eliminar el archivo.
@@ -191,6 +193,14 @@
         <div class="alert ok" id="ok" style="display:none">
             <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
             <strong>Completado!</strong> Archivo eliminado con éxito.
+        </div>
+        <div class="alert ok" id="exito" style="display:none">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+            <strong>Completado!</strong> Archivo cargado!
+        </div>
+        <div class="alert warning" id="warning" style="display:none">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+            <strong>Atención!</strong> La hora y la fecha no pueden estar vacios.
         </div>
         <div id="mensajes">
         </div>
@@ -201,6 +211,13 @@
 
         input.addEventListener('change', updateImageDisplay);
         
+        function mensajeExito() {
+            document.getElementById("exito").style.display = "block";
+            setTimeout(() => {
+                document.getElementById("exito").style.display = "none";
+            }, 5000);
+        }
+
         function updateImageDisplay() {
             var curFiles = input.files;
             if(curFiles.length != 0) {
@@ -294,11 +311,54 @@
             }
         }
 
-        function subirArchivo( tipo ,path ) {
+        function subirArchivo( tipo ,nombre ) {
             var data = new FormData();
             data.append("tipo", tipo);
-            data.append("path", path);
-            data.append("file", document.getElementById(path).files[0]);
+            data.append("nombre", nombre);
+            data.append("file", document.getElementById(nombre).files[0]);
+            data.append("form", "no");
+            var request = new XMLHttpRequest();
+            request.open("POST","cargarArchivo.php", true);
+
+            request.onreadystatechange = function() {
+                if(request.readyState==4 && request.status==200) {
+                    document.getElementById("mensajes").innerHTML = request.response;
+                }
+            };
+            request.send( data );
+        }
+
+        function subir(){
+            var fecha = document.getElementById("fecha");
+            var hora = document.getElementById("hora");
+            var opcion = document.getElementById("opcion");
+            if( opcion.value == "" ) {
+                return;
+            }
+            if( opcion.value == "ASC") {
+                if( hora.value == "" || fecha.value == "" ) {
+                    document.getElementById("warning").style.display = "block";
+                    setTimeout(() => {
+                        document.getElementById("warning").style.display = "none";
+                    }, 5000);
+                    return;
+                }
+            } else {
+                fecha.value = "";
+                hora.value = "";
+            }
+
+            if( !document.getElementById("data").files[0] ) {
+                return;
+            }
+
+            var data = new FormData();
+            data.append("file", document.getElementById("data").files[0]);
+            data.append("fecha", fecha.value);
+            data.append("hora", hora.value);
+            data.append("tipo", opcion.value);
+            data.append("form", "si");
+
             var request = new XMLHttpRequest();
             request.open("POST","cargarArchivo.php", true);
 

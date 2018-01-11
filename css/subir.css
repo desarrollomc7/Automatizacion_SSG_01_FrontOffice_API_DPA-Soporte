@@ -1,7 +1,7 @@
 input {
     margin: 0px;
 }
-form {
+#form {
     width: 600px;
     background: #aaa;
     margin: 20px auto;
@@ -19,7 +19,7 @@ form {
     border: 1px solid black;
 }
 
-form p, #respuesta > p {
+#form p, #respuesta > p {
     line-height: 32px;
     padding-left: 10px;
 }
@@ -60,7 +60,7 @@ form p, #respuesta > p {
 }
 
 #opcion{
-    width: 340px;
+    width: 345px;
     padding: 20px;
     background-color: bisque;
     display: inline-block;
@@ -102,6 +102,10 @@ img {
 
 .ok {
     background-color: #4CAF50;
+}
+
+.warning {
+    background-color: #ff9800;
 }
 
 .closebtn {

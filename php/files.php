@@ -12,7 +12,7 @@
                         $temp = str_replace("ASC_","",$file);
                         $temp = str_replace("_"," ",$temp);
                         $temp = str_replace(".csv","",$temp);
-                        $temp[13] = ":";
+                        // $temp[13] = ":";
                         echo "<div id='opcion'>
                                 <img src='../img/icon-csv.png' alt='icono csv'>
                                 <p>$temp</p>
