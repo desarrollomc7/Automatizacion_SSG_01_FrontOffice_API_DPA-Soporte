@@ -323,6 +323,9 @@
             request.onreadystatechange = function() {
                 if(request.readyState==4 && request.status==200) {
                     document.getElementById("mensajes").innerHTML = request.response;
+                    if( request.response.includes("Proceso Completado con Éxito") ) {
+                        mensajeExito();
+                    }
                 }
             };
             request.send( data );
@@ -365,6 +368,9 @@
             request.onreadystatechange = function() {
                 if(request.readyState==4 && request.status==200) {
                     document.getElementById("mensajes").innerHTML = request.response;
+                    if( request.response.includes("Proceso Completado con Éxito") ) {
+                        mensajeExito();
+                    }
                 }
             };
             request.send( data );

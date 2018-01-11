@@ -46,17 +46,16 @@
             echo "<p>No se pudo subir el archivo</p>";
         }
     }
-
     
     function asc(){
+        global $fichero_subido;
         global $link;
         $query = "truncate samsung.asc2";
         $result = mysqli_query($link, $query);
         if( $result == 0 ) {
             echo "<p>Error Borrando base anterior ASC. Escriba a diegofernando.rodriguez@grupodigitex.com</p>";
         } else {
-            // $query = "load data local infile 'C:/inetpub/wwwroot/samsung/temp.csv' into table samsung.asc2 CHARACTER set UTF8 fields terminated by ';' lines terminated by '\r\n' IGNORE 1 lines (`TIPO DE SERVICIO`,`OG`,`ASC`,`Ciudad`,`Departamento`,`TIPO DE ORDEN`,`RELLAMADO`,`Almacen de compra`,`PRIORIDAD`,`RUTA`,`Observacion`,`Regional`,`LED`,`LCD`,`LFD`,`REF`,`WSM`,`DRY`,`SRA`,`DVM`);";
-            $query = "load data local infile 'C:/wamp64/www/samsung/temp.csv' into table samsung.asc2 CHARACTER set UTF8 fields terminated by ';' lines terminated by '\r\n' IGNORE 1 lines (`TIPO DE SERVICIO`,`OG`,`ASC`,`Ciudad`,`Departamento`,`TIPO DE ORDEN`,`RELLAMADO`,`Almacen de compra`,`PRIORIDAD`,`RUTA`,`Observacion`,`Regional`,`LED`,`LCD`,`LFD`,`REF`,`WSM`,`DRY`,`SRA`,`DVM`);";
+            $query = "load data local infile '$fichero_subido' into table samsung.asc2 CHARACTER set UTF8 fields terminated by ';' lines terminated by '\r\n' IGNORE 1 lines (`TIPO DE SERVICIO`,`OG`,`ASC`,`Ciudad`,`Departamento`,`TIPO DE ORDEN`,`RELLAMADO`,`Almacen de compra`,`PRIORIDAD`,`RUTA`,`Observacion`,`Regional`,`LED`,`LCD`,`LFD`,`REF`,`WSM`,`DRY`,`SRA`,`DVM`);";
             $result = mysqli_query($link, $query);
             if( $result == 0 ) {
                 echo "<h2>Error subiendo a base de datos.</h2>";
@@ -70,23 +69,21 @@
                 echo "<h5>Solución 3:</h5>";
                 echo "<p class='mensaje' style='white-space: normal;'>Si sigue sin solucionar el problema escriba a: <b>diegofernando.rodriguez@grupodigitex.com</b></p>";
             } else {
-                // echo "<p class='mensaje'>Proceso Completado con Éxito</p>";
-                echo "<script type='text/javascript'>
-                        mensajeExito();
-                    </script>";
+                echo "<p class='mensaje'>Proceso Completado con Éxito</p>";
             }
             print "</div>";
         }
     }
 
     function tipificacion(){
+        global $fichero_subido;
         global $link;
         $query = "truncate samsung.tipificacion2";
         $result = mysqli_query($link, $query);
         if( $result == 0 ) {
             echo "<p>Error Borrando base anterior TIPIFICACION. Escriba a diegofernando.rodriguez@grupodigitex.com</p>";
         } else {
-            $query = "load data local infile 'C:/wamp64/www/samsung/temp.csv' into table samsung.tipificacion2 CHARACTER set UTF8 fields terminated by ';' lines terminated by '\r\n' IGNORE 1 lines (`producto`,`sintoma 1`,`sintoma 2`,`sintoma 3`,`sintoma 4`,`Procedimiento`);";
+            $query = "load data local infile '$fichero_subido' into table samsung.tipificacion2 CHARACTER set UTF8 fields terminated by ';' lines terminated by '\r\n' IGNORE 1 lines (`producto`,`sintoma 1`,`sintoma 2`,`sintoma 3`,`sintoma 4`,`Procedimiento`);";
             $result = mysqli_query($link, $query);
             if( $result == 0 ) {
                 echo "<h2>Error subiendo a base de datos.</h2>";
@@ -107,13 +104,14 @@
     }
 
     function productos(){
+        global $fichero_subido;
         global $link;
         $query = "truncate samsung.dpa_productos2";
         $result = mysqli_query($link, $query);
         if( $result == 0 ) {
             echo "<p>Error Borrando base anterior PRODUCTOS. Escriba a diegofernando.rodriguez@grupodigitex.com</p>";
         } else {
-            $query = "load data local infile 'C:/wamp64/www/samsung/temp.csv' into table samsung.dpa_productos2 CHARACTER set UTF8 fields terminated by ';' lines terminated by '\r\n' IGNORE 1 lines (`PRODUCTOS`,`TIPO`,`PERTENECE`);";
+            $query = "load data local infile '$fichero_subido' into table samsung.dpa_productos2 CHARACTER set UTF8 fields terminated by ';' lines terminated by '\r\n' IGNORE 1 lines (`PRODUCTOS`,`TIPO`,`PERTENECE`);";
             $result = mysqli_query($link, $query);
             if( $result == 0 ) {
                 echo "<h2>Error subiendo a base de datos.</h2>";
