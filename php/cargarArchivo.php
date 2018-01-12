@@ -83,7 +83,7 @@
         if( $result == 0 ) {
             echo "<p>Error Borrando base anterior TIPIFICACION. Escriba a diegofernando.rodriguez@grupodigitex.com</p>";
         } else {
-            $query = "load data local infile '$fichero_subido' into table samsung.tipificacion2 CHARACTER set UTF8 fields terminated by ';' lines terminated by '\r\n' IGNORE 1 lines (`producto`,`sintoma 1`,`sintoma 2`,`sintoma 3`,`sintoma 4`,`Procedimiento`);";
+            $query = "load data local infile '$fichero_subido' into table samsung.tipificacion CHARACTER set UTF8 fields terminated by ';' lines terminated by '\r\n' IGNORE 1 lines (`producto`,`sintoma 1`,`sintoma 2`,`sintoma 3`,`sintoma 4`,`Procedimiento`);";
             $result = mysqli_query($link, $query);
             if( $result == 0 ) {
                 echo "<h2>Error subiendo a base de datos.</h2>";
@@ -111,7 +111,7 @@
         if( $result == 0 ) {
             echo "<p>Error Borrando base anterior PRODUCTOS. Escriba a diegofernando.rodriguez@grupodigitex.com</p>";
         } else {
-            $query = "load data local infile '$fichero_subido' into table samsung.dpa_productos2 CHARACTER set UTF8 fields terminated by ';' lines terminated by '\r\n' IGNORE 1 lines (`PRODUCTOS`,`TIPO`,`PERTENECE`,`BLOQ_SINTOMA`);";
+            $query = "load data local infile '$fichero_subido' into table samsung.dpa_productos CHARACTER set UTF8 fields terminated by ';' lines terminated by '\r\n' IGNORE 1 lines (`PRODUCTOS`,`TIPO`,`PERTENECE`,`BLOQ_SINTOMA`);";
             $result = mysqli_query($link, $query);
             if( $result == 0 ) {
                 echo "<h2>Error subiendo a base de datos.</h2>";
