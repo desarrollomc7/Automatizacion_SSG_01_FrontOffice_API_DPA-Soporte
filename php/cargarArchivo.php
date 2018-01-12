@@ -111,7 +111,7 @@
         if( $result == 0 ) {
             echo "<p>Error Borrando base anterior PRODUCTOS. Escriba a diegofernando.rodriguez@grupodigitex.com</p>";
         } else {
-            $query = "load data local infile '$fichero_subido' into table samsung.dpa_productos2 CHARACTER set UTF8 fields terminated by ';' lines terminated by '\r\n' IGNORE 1 lines (`PRODUCTOS`,`TIPO`,`PERTENECE`);";
+            $query = "load data local infile '$fichero_subido' into table samsung.dpa_productos2 CHARACTER set UTF8 fields terminated by ';' lines terminated by '\r\n' IGNORE 1 lines (`PRODUCTOS`,`TIPO`,`PERTENECE`,`BLOQ_SINTOMA`);";
             $result = mysqli_query($link, $query);
             if( $result == 0 ) {
                 echo "<h2>Error subiendo a base de datos.</h2>";
