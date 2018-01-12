@@ -19,6 +19,7 @@
         <link rel="stylesheet" type="text/css" href="../css/subir.css"> 
         <link href="https://fonts.googleapis.com/css?family=Encode+Sans" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="../js/jquery-3.2.1.min.js"></script>
     </head>
     <body>
         <header>
@@ -167,7 +168,7 @@
 
                     inputOpcion.value = "TIPIFICACION";
                 } else if( opcion == "PRODUCTOS" ) {
-                    texto.innerHTML = "<p class='mensaje'>PRODUCTOS;TIPO;PERTENECE</p>";
+                    texto.innerHTML = "<p class='mensaje'>PRODUCTOS;TIPO;PERTENECE;BLOQ_SINTOMA</p>";
 
                     $.ajax({
                         type: 'post',
@@ -199,6 +200,8 @@
                     document.getElementById("mensajes").innerHTML = request.response;
                     if( request.response.includes("Proceso Completado con Éxito") ) {
                         mensajeExito();
+                        seleccion(opcion.value);
+                        seleccion(opcion.value);
                     }
                 }
             };
@@ -244,6 +247,8 @@
                     document.getElementById("mensajes").innerHTML = request.response;
                     if( request.response.includes("Proceso Completado con Éxito") ) {
                         mensajeExito();
+                        seleccion(opcion.value);
+                        seleccion(opcion.value);
                     }
                 }
             };
