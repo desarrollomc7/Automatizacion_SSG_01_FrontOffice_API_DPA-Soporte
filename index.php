@@ -18,6 +18,7 @@
         <link rel="stylesheet" type="text/css" href="css/style.css"> 
         <link href="https://fonts.googleapis.com/css?family=Encode+Sans" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="js/jquery-3.2.1.min.js"></script>
     </head>
     <body>
         <header>
@@ -233,33 +234,6 @@
         
         <div id="table_wrapper">
             <table id="Tabla">
-                <!-- <thead>
-                    <tr>  
-                        <th>Fecha</th> 
-                        <th>Hora</th> 
-                        <th>ASC</th> 
-                        <th>Tipo</th> 
-                        <th>Orden</th> 
-                        <th>Modelo</th>  
-                        <th>Tipo de producto</th>  
-                        <th>Tipología 1</th>  
-                        <th>Tipología 2</th>  
-                        <th>Tipología 3</th>  
-                        <th>Resolución</th>  
-                        <th>Estado</th>  
-                        <th>Razón</th>  
-                        <th>Almacén</th>  
-                        <th>Agente</th>  
-                        <th>Cliente</th>  
-                        <th>Cédula</th>  
-                        <th>Teléfono</th>  
-                        <th>Ciudad</th>  
-                        <th>Departamento</th>  
-                    </tr>  
-                </thead>
-                <tbody>
-                   
-                </tbody> -->
             </table>
         </div>            
     </body>
