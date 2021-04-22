@@ -35,7 +35,7 @@
         }
     }
 
-    listarArchivos( "C:/wamp64/www/samsung/data/".$_POST['opc'] );
+    listarArchivos( "../data/".$_POST['opc'] );
     // listarArchivos( "C:/wamp64/www/samsung/data/tipificacion" );
     // listarArchivos( "C:/wamp64/www/samsung/data/productos" );
 ?>

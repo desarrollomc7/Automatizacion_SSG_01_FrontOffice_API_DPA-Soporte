@@ -21,6 +21,7 @@
         <script src="js/jquery-3.2.1.min.js"></script>
     </head>
     <body>
+        <div id="bloqueo" style="width: 100%;height: 100%;z-index: 1000;position: fixed;background-color: black;opacity: .6;color: white;font-size: 500%;text-align: center; display: none;justify-content: center;flex-direction: column;user-select: none;"><div>Cargando...</div></div>
         <header>
             <img style="height:150px;" src="img/samsung.png" alt="Logo samsung">
         </header>
@@ -43,21 +44,8 @@
             <label for="Departamento">Departamento</label>
             <!-- <select name="Departamento[]" id="Departamento" onchange="jDepartamento(this.value)" multiple> -->
             <select name="Departamento[]" id="Departamento" multiple>
-                <?php
-                    $result = mysqli_query($link, "SELECT c.estado FROM cliente c, transaccion t WHERE c.numeroidentificacion = t.numeroidentificacion_cliente;");
-                    
-                    $lista = array();
-                    while($row = mysqli_fetch_row($result))
-                    {
-                        $lista[] = $row[0];
-                    }
-                    $lista = array_unique( $lista );
-                    sort( $lista );
-                    array_unshift( $lista, "" );
-                    foreach( $lista as $valor ) {
-                        echo '<option value = "'.$valor.'">'.$valor.'</option>';
-                    }
-                    ?>
+                <option value="0">Desactivado para </option>
+                <option value="0">mejor rendimiento</option>
             </select>
         </div>
 
@@ -67,113 +55,44 @@
                 <!-- <select name="Ciudad" id="Ciudad" multiple>
                     </select> -->
             <select name="Ciudad" id="Ciudad" multiple>
-                <?php
-                    $result = mysqli_query($link, "SELECT c.distrito2 FROM cliente c, transaccion t WHERE c.numeroidentificacion = t.numeroidentificacion_cliente;");
-                    
-                    $lista = array();
-                    while($row = mysqli_fetch_row($result))
-                    {
-                        $lista[] = $row[0];
-                    }
-                    $lista = array_unique( $lista );
-                    sort( $lista );
-                    array_unshift( $lista, "" );
-                    foreach( $lista as $valor ) {
-                        echo '<option value = "'.$valor.'">'.$valor.'</option>';
-                    }
-                    ?>
+            <option value="0">Desactivado para </option>
+            <option value="0">mejor rendimiento</option>
             </select>
         </div>    
                 
         <div class="Bloque">
-                <label for="Tipo1">Tipología 1</label>
-                <!-- <select name="Tipo1" id="Tipo1" onchange="jTipo1(this.value)"> -->
-                    <select name="Tipo1" id="Tipo1" multiple>
-                        <?php
-                    $result = mysqli_query($link, "SELECT t.sintoma_cat1 FROM transaccion t;");
-                    
-                    $lista = array();
-                    while($row = mysqli_fetch_row($result))
-                    {
-                        $lista[] = $row[0];
-                    }
-                    $lista = array_unique( $lista );
-                    sort( $lista );
-                    array_unshift( $lista, "*Sin datos" );
-                    array_unshift( $lista, "" );
-                    foreach( $lista as $valor ) {
-                        echo '<option value = "'.$valor.'">'.$valor.'</option>';
-                    }
-                    ?>
+            <label for="Tipo1">Tipología 1</label>
+            <!-- <select name="Tipo1" id="Tipo1" onchange="jTipo1(this.value)"> -->
+            <select name="Tipo1" id="Tipo1" multiple>
+                    <option value="0">Desactivado para </option>
+                    <option value="0">mejor rendimiento</option>
             </select>
         </div>
         
         <div class="Bloque">
             <label for="Tipo3">Tipología 3</label>
             <!-- <select name="Tipo3" id="Tipo3" onchange="jTipo3(this.value)"> -->
-                <select name="Tipo3" id="Tipo3" multiple>
-                    <?php
-                    $result = mysqli_query($link, "SELECT t.sintoma_cat3 FROM transaccion t;");
-                    
-                    $lista = array();
-                    while($row = mysqli_fetch_row($result))
-                    {
-                        $lista[] = $row[0];
-                    }
-                    $lista = array_unique( $lista );
-                    sort( $lista );
-                    array_unshift( $lista, "*Sin datos" );
-                    array_unshift( $lista, "" );
-                    foreach( $lista as $valor ) {
-                        echo '<option value = "'.$valor.'">'.$valor.'</option>';
-                    }
-                    ?>
+            <select name="Tipo3" id="Tipo3" multiple>
+                <option value="0">Desactivado para </option>
+                <option value="0">mejor rendimiento</option>
             </select>
         </div>
         
         <div class="Bloque">
             <label for="Almacen">Almacén</label>
             <!-- <select name="Tipo2" id="Tipo2" onchange="jTipo2(this.value)"> -->
-                <select name="Almacen" id="Almacen" multiple>
-                    <?php
-                    $result = mysqli_query($link, "SELECT t.almacen FROM transaccion t;");
-                    
-                    $lista = array();
-                    while($row = mysqli_fetch_row($result))
-                    {
-                        $lista[] = $row[0];
-                    }
-                    $lista = array_unique( $lista );
-                    sort( $lista );
-                    array_unshift( $lista, "*Sin datos" );
-                    array_unshift( $lista, "" );
-                    foreach( $lista as $valor ) {
-                        echo '<option value = "'.$valor.'">'.$valor.'</option>';
-                    }
-                    ?>
+            <select name="Almacen" id="Almacen" multiple>
+                <option value="0">Desactivado para </option>
+                <option value="0">mejor rendimiento</option>
             </select>
         </div>
         
         <div class="Bloque">
             <label for="Estado">Estado</label>
             <!-- <select name="Estado" id="Estado" onchange="jEstado(this.value)"> -->
-                <select name="Estado" id="Estado" multiple>
-                    <?php
-                    $result = mysqli_query($link, "SELECT t.estado FROM transaccion t;");
-                    
-                    $lista = array();
-                    while($row = mysqli_fetch_row($result))
-                    {
-                        $lista[] = $row[0];
-                    }
-                    $lista = array_unique( $lista );
-                    sort( $lista );
-                    array_unshift( $lista, "*Sin datos" );
-                    array_unshift( $lista, "" );
-                    foreach( $lista as $valor ) {
-                        echo '<option value = "'.$valor.'">'.$valor.'</option>';
-                    }
-                    ?>
+            <select name="Estado" id="Estado" multiple>
+                <option value="0">Desactivado para </option>
+                <option value="0">mejor rendimiento</option>
             </select>
         </div>
         
@@ -225,17 +144,17 @@
             
             <br>
             <button id="btnBuscar" class="otroBoton" onclick="buscar()">Buscar</button>
-            <button id="btnExport" class="otroBoton">Exportar a Excel</button>
+            <button id="btnExport2" class="otroBoton" onclick="exportar()">Exportar CSV</button>
             <button class="otroBoton" onclick="recargar()">Nueva búsqueda</button>
             <button class="otroBoton" onclick="window.location.href='php/subir.php'">Subir archivo</button>
+            <button class="otroBoton" onclick="tiempos()">Tiempo en GCIC</button>
+            <button class="otroBoton" onclick="guardarSms()">SMS</button>
+			<button class="otroBoton" onclick="ip()">IP</button>
 
             <button class="otroBoton" id="cerrar" onclick="location.href='cerrarSesion.php'">Cerrar sesión</button>
         </div>
         
-        <div id="table_wrapper">
-            <table id="Tabla">
-            </table>
-        </div>            
+        <div id="table_wrapper"><table id="Tabla"></table></div>            
     </body>
     <script src="js/reload.js"></script>
 </html>

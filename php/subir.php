@@ -31,6 +31,11 @@
             <button class="Boton" onclick="seleccion('ASC')">ASC</button>
             <button class="Boton" onclick="seleccion('TIPIFICACION')">TIPIFICACIÓN</button>
             <button class="Boton" onclick="seleccion('PRODUCTOS')">PRODUCTOS</button>
+            <button class="Boton" onclick="seleccion('PARTES')">PARTES</button>
+            <button class="Boton" onclick="seleccion('SMS')">SMS</button>
+			<button class="Boton" onclick="seleccion('ZONAROJA')">ZONA ROJA</button>
+			<button class="Boton" onclick="seleccion('ALERTA')">ALERTA</button>
+			<button class="Boton" onclick="seleccion('IILINEA')">INSTALACIÓN EN LINEA</button>
         </div>
 
         <div id="form">
@@ -51,7 +56,7 @@
             </div>
             <div>
                 <button class="otroBoton" id="subir" onclick="subir()">Subir</button>
-                <button class="otroBoton">Activar ahora</button>
+                <button class="otroBoton" id="verificarBase" onclick="verificar()">Verificar base de datos</button>
             </div>
         </div>
 
@@ -113,8 +118,10 @@
         function seleccion( opcion ) {
             if( opcion == "ASC" ) {
                 document.getElementById("fechas").style.display = "block";
+                document.getElementById("verificarBase").style.display = "inline";
             } else {
                 document.getElementById("fechas").style.display = "none";
+                document.getElementById("verificarBase").style.display = "none";
             }
 
             if( document.getElementById("respuesta") ){
@@ -124,7 +131,7 @@
             var titulo = document.getElementById("titulo");
             var texto = document.getElementById("texto_descripcion");
             var inputOpcion = document.getElementById("opcion");
-            num = ( opcion == "ASC" ) ? 0 : ( ( opcion == "TIPIFICACION" ) ? 1 : 2); 
+            num = ( opcion == "ASC" ) ? 0 : ( ( opcion == "TIPIFICACION" ) ? 1 : ( ( opcion == "PRODUCTOS" ) ? 2 : ( opcion == "PARTES" ) ? 3 : ( opcion == "SMS" ) ? 4 : ( opcion == "ZONAROJA" ) ? 5 : ( opcion == "ALERTA" ) ? 6 : 7)); 
             var boton = document.getElementsByTagName("button");
             if( boton[num].className == "Boton active" ) {
                 boton[num].className = "Boton";
@@ -132,6 +139,11 @@
                 boton[0].className = "Boton";
                 boton[1].className = "Boton";
                 boton[2].className = "Boton";
+                boton[3].className = "Boton";
+                boton[4].className = "Boton";
+				boton[5].className = "Boton";
+				boton[6].className = "Boton";
+				boton[7].className = "Boton";
                 boton[num].className += " active";
                 titulo.innerHTML = "Encabezado de " + opcion ;
                 titulo.style.display = "block";
@@ -153,7 +165,7 @@
                     
                     inputOpcion.value = "ASC";
                 } else if( opcion == "TIPIFICACION" ) {
-                    texto.innerHTML = "<p class='mensaje'>producto;sintoma 1;sintoma 2;sintoma 3;sintoma 4;Procedimiento</p>";
+                    texto.innerHTML = "<p class='mensaje'>linea;producto;sintoma 1;sintoma 2;sintoma 3;sintoma 4 con;sintoma 4 sin;Procedimiento;parte</p>";
 
                     $.ajax({
                         type: 'post',
@@ -182,7 +194,82 @@
                     });
 
                     inputOpcion.value = "PRODUCTOS";
-                }
+                } else if( opcion == "PARTES" ) {
+                    texto.innerHTML = "<p class='mensaje'>linea;parte</p>";
+
+                    $.ajax({
+                        type: 'post',
+                        url: 'files.php',
+                        data: {
+                            opc:opcion
+                        },
+                        success: function (response) {
+                            texto.innerHTML += response; 
+                        }
+                    });
+
+                    inputOpcion.value = "PARTES";
+                } else if( opcion == "SMS" ) {
+                    texto.innerHTML = "<p class='mensaje'>Landing;Titulo;Linea;CampanaID;Mensaje</p>";
+
+                    $.ajax({
+                        type: 'post',
+                        url: 'files.php',
+                        data: {
+                            opc:opcion
+                        },
+                        success: function (response) {
+                            texto.innerHTML += response; 
+                        }
+                    });
+
+                    inputOpcion.value = "SMS";
+                } else if( opcion == "ZONAROJA" ) {
+                    texto.innerHTML = "<p class='mensaje'>Tipo;Nombre;Pertenece</p>";
+
+                    $.ajax({
+                        type: 'post',
+                        url: 'files.php',
+                        data: {
+                            opc:opcion
+                        },
+                        success: function (response) {
+                            texto.innerHTML += response; 
+                        }
+                    });
+
+                    inputOpcion.value = "ZONAROJA";
+                } else if( opcion == "ALERTA" ) {
+                    texto.innerHTML = "<p class='mensaje'>Valor;Mensaje</p>";
+
+                    $.ajax({
+                        type: 'post',
+                        url: 'files.php',
+                        data: {
+                            opc:opcion
+                        },
+                        success: function (response) {
+                            texto.innerHTML += response; 
+                        }
+                    });
+
+                    inputOpcion.value = "ALERTA";
+                } else if( opcion == "IILINEA" ) {
+                    texto.innerHTML = "<p class='mensaje'>producto;procedimiento</p>";
+
+                    $.ajax({
+                        type: 'post',
+                        url: 'files.php',
+                        data: {
+                            opc:opcion
+                        },
+                        success: function (response) {
+                            texto.innerHTML += response; 
+                        }
+                    });
+
+                    inputOpcion.value = "IILINEA";
+                } 
             }
         }
 
@@ -253,6 +340,19 @@
                 }
             };
             request.send( data );
+        }
+
+        function verificar( ) {
+            $.ajax({
+                type: 'post',
+                url: 'verificar.php', 
+                data: {
+                    file:""
+                },
+                success: function (response) {
+                    document.getElementById("mensajes").innerHTML = response;
+                }
+            });
         }
 
         function eliminarArchivo( archivo ) {
